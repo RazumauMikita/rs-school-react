@@ -1,13 +1,9 @@
-
-
-
 function App() {
-
   return (
     <>
-        <p>PIZDA SYKA</p>
+      <p>E</p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
