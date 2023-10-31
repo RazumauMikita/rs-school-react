@@ -22,12 +22,14 @@ export default class Header extends Component<HeaderProps, HeaderState> {
 
   async getData() {
     const storageData: string = localStorage.getItem("search-query") || "";
+    this.props.changeLogStatus();
     const response: Response = await fetch(
       `https://swapi.dev/api/people/?search=${storageData}`,
     );
     const searchResponse: SearchResponse = await response.json();
     const data: PeopleResponse[] = searchResponse.results;
     this.props.changeState(data);
+    this.props.changeLogStatus();
   }
 
   componentDidMount(): void {

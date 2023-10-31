@@ -8,7 +8,7 @@ export default class DataView extends Component<DataViewProps> {
   render() {
     return (
       <div className="data-container">
-        {this.props.data.length
+        {this.props.loadStatus
           ? this.props.data.map((el, index) => {
               return (
                 <div className="item__container" key={index}>
@@ -17,7 +17,7 @@ export default class DataView extends Component<DataViewProps> {
                 </div>
               );
             })
-          : "load"}
+          : "load..."}
       </div>
     );
   }
