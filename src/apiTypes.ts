@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 type PeopleResponse = {
   name: string;
   birth_year: string;
@@ -26,6 +28,7 @@ type SearchResponse = {
 
 interface DataViewProps {
   data: PeopleResponse[];
+  loadStatus: boolean;
 }
 
 interface HeaderState {
@@ -34,11 +37,19 @@ interface HeaderState {
 
 interface HeaderProps {
   changeState: (newData: PeopleResponse[]) => void;
+  changeLogStatus: () => void;
 }
 
 interface AppState {
   people: PeopleResponse[];
+  isLoading: boolean;
 }
+
+interface ErrorBoundaryProps {
+  fallback: ReactNode;
+  children: ReactNode;
+}
+
 export type {
   PeopleResponse,
   SearchResponse,
@@ -46,4 +57,5 @@ export type {
   HeaderState,
   HeaderProps,
   AppState,
+  ErrorBoundaryProps,
 };
