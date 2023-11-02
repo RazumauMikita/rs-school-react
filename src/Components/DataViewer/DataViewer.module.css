@@ -1,0 +1,13 @@
+.item {
+  background-color: rgb(194, 174, 174);
+  display: flex;
+  flex-direction: column;
+}
+
+.data_container {
+  background-color: yellow;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+}

@@ -4,6 +4,4 @@ type DataViewerProps = {
   loadStatus: boolean;
 };
 
-type DataViewerState = {};
-
-export type { DataViewerProps, DataViewerState };
+export type { DataViewerProps };

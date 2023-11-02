@@ -1,6 +1,6 @@
 import { Component } from "react";
 import Header from "./Header";
-import DataView from "./Components/DataVieewer/DataView";
+import DataView from "./Components/DataViewer/DataViewer";
 import { AppState, PeopleResponse } from "./apiTypes";
 import ErrorButton from "./ErrorButton";
 
