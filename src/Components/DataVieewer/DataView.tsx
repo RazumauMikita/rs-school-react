@@ -1,10 +1,10 @@
 import { Component } from "react";
-import { DataViewProps } from "./apiTypes";
+import { DataViewerProps, DataViewerState } from "./DataViewer.type";
 
-export default class DataView extends Component<DataViewProps> {
-  constructor(props: DataViewProps) {
-    super(props);
-  }
+export default class DataViewer extends Component<
+  DataViewerProps,
+  DataViewerState
+> {
   render() {
     return (
       <div className="data-container">
@@ -17,7 +17,7 @@ export default class DataView extends Component<DataViewProps> {
                 </div>
               );
             })
-          : "load..."}
+          : "loading..."}
       </div>
     );
   }
