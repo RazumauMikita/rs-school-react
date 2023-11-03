@@ -5,7 +5,7 @@ export default class StarWarsService {
 
   async fetchData(searchQuery: string | null) {
     const response: Response = await fetch(
-      `${this.root}/people/?search=${searchQuery}`
+      `${this.root}/people/?search=${searchQuery}`,
     );
     const searchResponse: ApiResponse = await response.json();
     const data: Person[] = searchResponse.results;
