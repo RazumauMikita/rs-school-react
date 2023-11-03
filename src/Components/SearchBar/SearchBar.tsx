@@ -1,12 +1,17 @@
 import { Component } from "react";
-import {
-  HeaderProps,
-  HeaderState,
-  PeopleResponse,
-  SearchResponse,
-} from "./apiTypes";
+import { SearchBarProps, SearchBarState } from "./SearchBar.type";
+import { Person } from "../../apiService/StarWarsService.type";
+import StarWarsService from "../../apiService/StarWarsService";
 
-export default class Header extends Component<HeaderProps, HeaderState> {
+export default class SearchBar extends Component<
+  SearchBarProps,
+  SearchBarState
+> {
+  service: StarWarsService;
+  constructor(props: SearchBarProps) {
+    super(props);
+    this.service = new StarWarsService();
+  }
   state = {
     inputValue: localStorage.getItem("search-query") || "",
   };
@@ -21,13 +26,9 @@ export default class Header extends Component<HeaderProps, HeaderState> {
   };
 
   async getData() {
-    const storageData: string = localStorage.getItem("search-query") || "";
+    const searchQuery: string = localStorage.getItem("search-query") || "";
     this.props.changeLogStatus();
-    const response: Response = await fetch(
-      `https://swapi.dev/api/people/?search=${storageData}`,
-    );
-    const searchResponse: SearchResponse = await response.json();
-    const data: PeopleResponse[] = searchResponse.results;
+    const data: Person[] = await this.service.fetchData(searchQuery);
     this.props.changeState(data);
     this.props.changeLogStatus();
   }
