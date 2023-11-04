@@ -7,7 +7,7 @@ const SearchBar: FC<SearchBarProps> = (props) => {
   const service = new StarWarsService();
   const { changeState, changeLogStatus } = { ...props };
   const [inputValue, setInputValue] = useState(
-    localStorage.getItem("search-query") || "",
+    localStorage.getItem("search-query") || ""
   );
 
   const inputChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -20,10 +20,10 @@ const SearchBar: FC<SearchBarProps> = (props) => {
   };
 
   const getData = async () => {
-    changeLogStatus();
+    changeLogStatus(true);
     const data: Person[] = await service.fetchData(inputValue);
     changeState(data);
-    changeLogStatus();
+    changeLogStatus(false);
   };
 
   useEffect(() => {

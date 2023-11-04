@@ -6,7 +6,7 @@ const DataViewerF: FC<DataViewerProps> = (props) => {
   const { data, loadStatus } = { ...props };
   return (
     <div className={styles.data_container}>
-      {loadStatus ? (
+      {!loadStatus ? (
         data.map((el, index) => {
           return (
             <div className={styles.item} key={index}>

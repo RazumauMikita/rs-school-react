@@ -6,7 +6,7 @@ type SearchBarState = {
 
 type SearchBarProps = {
   changeState: (newData: Person[]) => void;
-  changeLogStatus: () => void;
+  changeLogStatus: (status: boolean) => void;
 };
 
 export type { SearchBarState, SearchBarProps };

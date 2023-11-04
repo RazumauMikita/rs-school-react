@@ -1,12 +1,12 @@
-import { Component } from "react";
+import { FC } from "react";
 import MainPage from "./Pages/MainPage/MainPage";
 
-export default class App extends Component {
-  render() {
-    return (
-      <>
-        <MainPage />
-      </>
-    );
-  }
-}
+const App: FC = () => {
+  return (
+    <>
+      <MainPage />
+    </>
+  );
+};
+
+export default App;

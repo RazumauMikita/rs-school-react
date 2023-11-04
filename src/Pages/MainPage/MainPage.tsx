@@ -1,38 +1,27 @@
-import { Component } from "react";
+import { FC, useState } from "react";
 import SearchBar from "../../Components/SearchBar/SearchBar";
 import ErrorButton from "../../ErrorButton";
 import { Person } from "../../apiService/StarWarsService.type";
 import DataViewer from "../../Components/DataViewer/DataViewer";
-import { MainPageState } from "./MainPage.type";
 
-export default class MainPage extends Component<
-  Record<string, never>,
-  MainPageState
-> {
-  state = { people: [], isLoading: false };
-
-  changeLoadStatus = () => {
-    this.setState({ isLoading: !this.state.isLoading });
+const MainPage: FC = () => {
+  const [people, setPeople] = useState<Person[]>([]);
+  const [isLoading, setLoading] = useState(false);
+  const changeLoadStatus = (status: boolean) => {
+    setLoading(status);
   };
 
-  setData = (newData: Person[]) => {
-    this.setState({
-      people: newData,
-    });
+  const setData = (newData: Person[]) => {
+    setPeople(newData);
   };
-  render() {
-    return (
-      <>
-        <SearchBar
-          changeState={this.setData}
-          changeLogStatus={this.changeLoadStatus}
-        />
-        <DataViewer
-          data={this.state.people}
-          loadStatus={this.state.isLoading}
-        />
-        <ErrorButton />
-      </>
-    );
-  }
-}
+
+  return (
+    <>
+      <SearchBar changeState={setData} changeLogStatus={changeLoadStatus} />
+      <DataViewer data={people} loadStatus={isLoading} />
+      <ErrorButton />
+    </>
+  );
+};
+
+export default MainPage;
