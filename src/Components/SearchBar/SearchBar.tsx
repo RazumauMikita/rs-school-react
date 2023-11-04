@@ -1,54 +1,44 @@
-import { Component } from "react";
-import { SearchBarProps, SearchBarState } from "./SearchBar.type";
+import { FC, useEffect, useState } from "react";
+import { SearchBarProps } from "./SearchBar.type";
 import { Person } from "../../apiService/StarWarsService.type";
 import StarWarsService from "../../apiService/StarWarsService";
 
-export default class SearchBar extends Component<
-  SearchBarProps,
-  SearchBarState
-> {
-  service: StarWarsService;
-  constructor(props: SearchBarProps) {
-    super(props);
-    this.service = new StarWarsService();
-  }
-  state = {
-    inputValue: localStorage.getItem("search-query") || "",
+const SearchBar: FC<SearchBarProps> = (props) => {
+  const service = new StarWarsService();
+  const { changeState, changeLogStatus } = { ...props };
+  const [inputValue, setInputValue] = useState(
+    localStorage.getItem("search-query") || ""
+  );
+
+  const inputChange = (event: React.FormEvent<HTMLInputElement>) => {
+    setInputValue(event.currentTarget.value);
   };
 
-  inputChange = (event: React.FormEvent<HTMLInputElement>) => {
-    this.setState({ inputValue: event.currentTarget.value });
+  const buttonClick = () => {
+    localStorage.setItem("search-query", inputValue);
+    getData();
   };
 
-  buttonClick = () => {
-    localStorage.setItem("search-query", this.state.inputValue);
-    this.getData();
+  const getData = async () => {
+    changeLogStatus();
+    const data: Person[] = await service.fetchData(inputValue);
+    changeState(data);
+    changeLogStatus();
   };
 
-  async getData() {
-    const searchQuery: string = localStorage.getItem("search-query") || "";
-    this.props.changeLogStatus();
-    const data: Person[] = await this.service.fetchData(searchQuery);
-    this.props.changeState(data);
-    this.props.changeLogStatus();
-  }
+  useEffect(() => {
+    getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-  componentDidMount(): void {
-    this.getData();
-  }
+  return (
+    <>
+      <div>
+        <input type="text" value={inputValue} onChange={inputChange} />
+        <button onClick={buttonClick}>Search</button>
+      </div>
+    </>
+  );
+};
 
-  render() {
-    return (
-      <>
-        <div>
-          <input
-            type="text"
-            value={this.state.inputValue}
-            onChange={this.inputChange}
-          />
-          <button onClick={this.buttonClick}>Search</button>
-        </div>
-      </>
-    );
-  }
-}
+export default SearchBar;

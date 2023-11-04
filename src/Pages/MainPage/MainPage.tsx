@@ -4,6 +4,7 @@ import ErrorButton from "../../ErrorButton";
 import { Person } from "../../apiService/StarWarsService.type";
 import DataViewer from "../../Components/DataViewer/DataViewer";
 import { MainPageState } from "./MainPage.type";
+
 export default class MainPage extends Component<
   Record<string, never>,
   MainPageState
