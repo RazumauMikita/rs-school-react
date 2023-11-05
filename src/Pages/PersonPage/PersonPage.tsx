@@ -26,7 +26,6 @@ const PersonPage: FC<PersonPageProps> = (props) => {
 
   useEffect(() => {
     getPerson();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   return (

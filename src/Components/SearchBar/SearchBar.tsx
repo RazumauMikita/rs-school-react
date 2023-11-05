@@ -35,7 +35,6 @@ const SearchBar: FC<SearchBarProps> = (props) => {
 
   useEffect(() => {
     getData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
   return (
