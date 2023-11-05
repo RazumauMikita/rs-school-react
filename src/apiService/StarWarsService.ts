@@ -1,4 +1,4 @@
-import { ApiResponse } from "./StarWarsService.type";
+import { ApiResponse, Person } from "./StarWarsService.type";
 
 export default class StarWarsService {
   root = "https://swapi.dev/api";
@@ -13,6 +13,13 @@ export default class StarWarsService {
     );
     const searchResponse: ApiResponse = await response.json();
     console.log(searchResponse);
+    return searchResponse;
+  }
+
+  async fetchPerson(id: number) {
+    const url = `${this.root}/people/${id}`;
+    const response: Response = await fetch(url);
+    const searchResponse: Person = await response.json();
     return searchResponse;
   }
 }

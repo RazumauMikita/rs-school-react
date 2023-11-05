@@ -1,7 +1,9 @@
-import type { PeopleResponse } from "../../apiTypes";
+import type { Person } from "../../apiService/StarWarsService.type";
 type DataViewerProps = {
-  data: PeopleResponse[];
+  data: Person[];
   loadStatus: boolean;
+  page: string;
+  setToggleSide: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export type { DataViewerProps };

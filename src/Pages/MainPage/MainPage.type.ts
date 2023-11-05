@@ -1,7 +1,5 @@
-import { Person } from "../../apiService/StarWarsService.type";
-
-type MainPageState = {
-  people: Person[];
-  isLoading: boolean;
+type MainPageProps = {
+  toggleSide: boolean;
+  setToggleSide: React.Dispatch<React.SetStateAction<boolean>>;
 };
-export type { MainPageState };
+export type { MainPageProps };

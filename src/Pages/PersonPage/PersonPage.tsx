@@ -1,7 +1,46 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Person } from "../../apiService/StarWarsService.type";
+import StarWarsService from "../../apiService/StarWarsService";
 
-const PersonPage: FC = () => {
-  return <div>This is person Page!</div>;
+type PersonPageProps = {
+  setToggleSide: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const PersonPage: FC<PersonPageProps> = (props) => {
+  const { id } = useParams();
+  const [person, setPerson] = useState<Person>();
+  const navigate = useNavigate();
+  const apiService = new StarWarsService();
+
+  const getPerson = async () => {
+    if (id) {
+      const person = await apiService.fetchPerson(Number(id));
+      setPerson(person);
+    }
+  };
+
+  const closeSideSection = () => {
+    props.setToggleSide(false);
+    navigate("/");
+  };
+
+  useEffect(() => {
+    getPerson();
+  }, [id]);
+
+  return (
+    <div>
+      <button onClick={closeSideSection}>CLOSE</button>
+      <div>
+        <h1>{person?.name}</h1>
+        <span>{person?.gender}</span>
+        <span>{person?.eye_color}</span>
+        <span>{person?.mass}</span>
+        <span>{person?.height}</span>
+      </div>
+    </div>
+  );
 };
 
 export default PersonPage;

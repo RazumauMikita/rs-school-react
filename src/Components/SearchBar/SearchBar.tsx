@@ -5,7 +5,9 @@ import StarWarsService from "../../apiService/StarWarsService";
 
 const SearchBar: FC<SearchBarProps> = (props) => {
   const service = new StarWarsService();
-  const { changeState, changeLogStatus, setItems, page } = { ...props };
+  const { changeState, changeLogStatus, setItems, setURLParams, page } = {
+    ...props,
+  };
   const [inputValue, setInputValue] = useState(
     localStorage.getItem("search-query") || ""
   );
@@ -16,6 +18,10 @@ const SearchBar: FC<SearchBarProps> = (props) => {
 
   const buttonClick = () => {
     localStorage.setItem("search-query", inputValue);
+    if (page !== "1") {
+      setURLParams({ page: "1" });
+      return;
+    }
     getData();
   };
 

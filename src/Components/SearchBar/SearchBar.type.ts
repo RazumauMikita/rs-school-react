@@ -1,3 +1,4 @@
+import { SetURLSearchParams } from "react-router-dom";
 import { Person } from "../../apiService/StarWarsService.type";
 
 type SearchBarState = {
@@ -8,6 +9,7 @@ type SearchBarProps = {
   changeState: (newData: Person[]) => void;
   changeLogStatus: (status: boolean) => void;
   setItems: React.Dispatch<React.SetStateAction<number>>;
+  setURLParams: SetURLSearchParams;
   page?: string;
 };
 

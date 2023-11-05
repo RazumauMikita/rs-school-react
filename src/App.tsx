@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import MainPage from "./Pages/MainPage/MainPage";
 
 import ErrorBoundary from "./ErrorBoundary.tsx";
@@ -7,13 +7,22 @@ import PersonPage from "./Pages/PersonPage/PersonPage.tsx";
 import NotFoundPage from "./Components/NotFoundPage/NotFoundPage.tsx";
 
 const App: FC = () => {
+  const [toggleSide, setToggleSide] = useState(false);
+
   return (
     <>
       <ErrorBoundary fallback={<p>Oops! Looks like an error!</p>}>
         <Routes>
-          <Route>
-            <Route index element={<MainPage />} />
-            <Route path="/person/:id" element={<PersonPage />} />
+          <Route
+            path="/"
+            element={
+              <MainPage toggleSide={toggleSide} setToggleSide={setToggleSide} />
+            }
+          >
+            <Route
+              path="/person/:id"
+              element={<PersonPage setToggleSide={setToggleSide} />}
+            />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
