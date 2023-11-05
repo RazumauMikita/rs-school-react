@@ -5,14 +5,14 @@ export default class StarWarsService {
 
   async fetchData(
     searchQuery: string | null,
-    page?: string,
+    page?: string
   ): Promise<ApiResponse> {
     const pageNumber = page ? `&page=${page}` : "";
     const response: Response = await fetch(
-      `${this.root}/people/?search=${searchQuery}${pageNumber}`,
+      `${this.root}/people/?search=${searchQuery}${pageNumber}`
     );
     const searchResponse: ApiResponse = await response.json();
-
+    console.log(searchResponse);
     return searchResponse;
   }
 }

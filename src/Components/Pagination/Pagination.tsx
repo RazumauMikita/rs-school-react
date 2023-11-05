@@ -1,6 +1,5 @@
 import { FC } from "react";
 import { PaginationProps } from "./Pagination.type";
-
 const Pagination: FC<PaginationProps> = (props) => {
   const { nav = null, disable, onNextPageClick, onPrevPageClick } = props;
 

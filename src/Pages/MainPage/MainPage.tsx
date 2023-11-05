@@ -1,9 +1,10 @@
 import { FC, useState } from "react";
 import SearchBar from "../../Components/SearchBar/SearchBar";
-
 import { Person } from "../../apiService/StarWarsService.type";
 import DataViewer from "../../Components/DataViewer/DataViewer";
 import Pagination from "../../Components/Pagination/Pagination";
+import { Outlet } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 const ROWS_PER_PAGE = 10;
 const getTotalPageCount = (rowCount: number): number =>
   Math.ceil(rowCount / ROWS_PER_PAGE);
@@ -11,8 +12,10 @@ const getTotalPageCount = (rowCount: number): number =>
 const MainPage: FC = () => {
   const [people, setPeople] = useState<Person[]>([]);
   const [items, setItems] = useState<number>(0);
-  const [page, setPage] = useState<number>(1);
   const [isLoading, setLoading] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
+
+  const pageT = Number(searchParams.get("page"));
   const changeLoadStatus = (status: boolean) => {
     setLoading(status);
   };
@@ -22,15 +25,10 @@ const MainPage: FC = () => {
   };
 
   const prevPageClick = () => {
-    const currentPage = page;
-    const prevPage = currentPage - 1;
-    setPage(prevPage > 0 ? prevPage : currentPage);
+    setSearchParams({ page: String(pageT - 1) });
   };
   const nextPageClick = () => {
-    const currentPage = page;
-    const nextPage = currentPage + 1;
-    const totalPages = people ? getTotalPageCount(items) : currentPage;
-    setPage(nextPage <= totalPages ? nextPage : currentPage);
+    setSearchParams({ page: String(pageT + 1) });
   };
 
   return (
@@ -38,22 +36,30 @@ const MainPage: FC = () => {
       <SearchBar
         changeState={setData}
         changeLogStatus={changeLoadStatus}
-        page={page.toString()}
+        page={pageT.toString()}
         setItems={setItems}
       />
       <DataViewer data={people} loadStatus={isLoading} />
-      <Pagination
-        onNextPageClick={nextPageClick}
-        onPrevPageClick={prevPageClick}
-        disable={{
-          left: page === 1,
-          right: page === getTotalPageCount(items),
-        }}
-        nav={{
-          current: page,
-          total: getTotalPageCount(items),
-        }}
-      />
+      {!isLoading ? (
+        <Pagination
+          onNextPageClick={nextPageClick}
+          onPrevPageClick={prevPageClick}
+          disable={{
+            left: pageT === 1,
+            right: pageT === getTotalPageCount(items),
+          }}
+          nav={{
+            current: pageT,
+            total: getTotalPageCount(items),
+          }}
+        />
+      ) : (
+        ""
+      )}
+
+      <div className="outlet">
+        <Outlet />
+      </div>
     </>
   );
 };

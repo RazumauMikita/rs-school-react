@@ -7,7 +7,7 @@ const SearchBar: FC<SearchBarProps> = (props) => {
   const service = new StarWarsService();
   const { changeState, changeLogStatus, setItems, page } = { ...props };
   const [inputValue, setInputValue] = useState(
-    localStorage.getItem("search-query") || "",
+    localStorage.getItem("search-query") || ""
   );
 
   const inputChange = (event: React.FormEvent<HTMLInputElement>) => {
