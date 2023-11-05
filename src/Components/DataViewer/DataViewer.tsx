@@ -16,9 +16,7 @@ const DataViewerF: FC<DataViewerProps> = (props) => {
           return (
             <div className={styles.item} key={index}>
               <Link to={{ pathname: `/person/${id}`, search: `page=${page}` }}>
-                <span onClick={openSide}>
-                  <strong>Name:</strong> {el.name}
-                </span>
+                <span onClick={openSide}>{el.name}</span>
               </Link>
 
               <span>
@@ -31,7 +29,7 @@ const DataViewerF: FC<DataViewerProps> = (props) => {
           );
         })
       ) : (
-        <span className="">loading...</span>
+        <span className={styles.loader}>loading...</span>
       )}
     </div>
   );
