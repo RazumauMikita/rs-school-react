@@ -9,7 +9,7 @@ const SearchBar: FC<SearchBarProps> = (props) => {
     ...props,
   };
   const [inputValue, setInputValue] = useState(
-    localStorage.getItem("search-query") || ""
+    localStorage.getItem("search-query") || "",
   );
 
   const inputChange = (event: React.FormEvent<HTMLInputElement>) => {
