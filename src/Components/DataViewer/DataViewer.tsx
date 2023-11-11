@@ -1,17 +1,19 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { DataViewerProps } from "./DataViewer.type";
 import styles from "./DataViewer.module.css";
 import { Link } from "react-router-dom";
+import { PeopleContext } from "../../contexts/AppContextProvider";
 
 const DataViewerF: FC<DataViewerProps> = (props) => {
-  const { data, loadStatus, page, setToggleSide } = { ...props };
+  const { loadStatus, page, setToggleSide } = { ...props };
+  const peopleProps = useContext(PeopleContext);
   const openSide = () => {
     setToggleSide(true);
   };
   return (
     <div className={styles.data_container}>
       {!loadStatus ? (
-        data.map((el, index) => {
+        peopleProps?.people.map((el, index) => {
           const id = el.url.split("/").at(-2);
           return (
             <div className={styles.item} key={index}>

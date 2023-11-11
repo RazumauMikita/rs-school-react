@@ -7,6 +7,7 @@ import { Outlet } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 import styles from "./MainPage.module.css";
 import { MainPageProps } from "./MainPage.type";
+import { PeopleContext } from "../../contexts/AppContextProvider";
 const ROWS_PER_PAGE = 10;
 const getTotalPageCount = (rowCount: number): number =>
   Math.ceil(rowCount / ROWS_PER_PAGE);
@@ -22,10 +23,6 @@ const MainPage: FC<MainPageProps> = (props) => {
     setLoading(status);
   };
 
-  const setData = (newData: Person[]) => {
-    setPeople(newData);
-  };
-
   const prevPageClick = () => {
     setSearchParams({ page: String(pageT - 1) });
   };
@@ -35,48 +32,48 @@ const MainPage: FC<MainPageProps> = (props) => {
 
   return (
     <div className={styles.main_page_wrapper}>
-      <div
-        className={
-          props.toggleSide ? styles.left_section : styles.right_section_all
-        }
-      >
-        <SearchBar
-          changeState={setData}
-          changeLogStatus={changeLoadStatus}
-          page={pageT.toString()}
-          setURLParams={setSearchParams}
-          setItems={setItems}
-        />
-        <DataViewer
-          data={people}
-          loadStatus={isLoading}
-          page={pageT.toString()}
-          setToggleSide={props.setToggleSide}
-        />
-        {!isLoading ? (
-          <Pagination
-            onNextPageClick={nextPageClick}
-            onPrevPageClick={prevPageClick}
-            disable={{
-              left: pageT === 1,
-              right: pageT === getTotalPageCount(items),
-            }}
-            nav={{
-              current: pageT,
-              total: getTotalPageCount(items),
-            }}
+      <PeopleContext.Provider value={{ people, setPeople }}>
+        <div
+          className={
+            props.toggleSide ? styles.left_section : styles.right_section_all
+          }
+        >
+          <SearchBar
+            changeLogStatus={changeLoadStatus}
+            page={pageT.toString()}
+            setURLParams={setSearchParams}
+            setItems={setItems}
           />
-        ) : (
-          ""
-        )}
-      </div>
-      <div
-        className={
-          props.toggleSide ? styles.right_section : styles.right_section_close
-        }
-      >
-        <Outlet />
-      </div>
+          <DataViewer
+            loadStatus={isLoading}
+            page={pageT.toString()}
+            setToggleSide={props.setToggleSide}
+          />
+          {!isLoading ? (
+            <Pagination
+              onNextPageClick={nextPageClick}
+              onPrevPageClick={prevPageClick}
+              disable={{
+                left: pageT === 1,
+                right: pageT === getTotalPageCount(items),
+              }}
+              nav={{
+                current: pageT,
+                total: getTotalPageCount(items),
+              }}
+            />
+          ) : (
+            ""
+          )}
+        </div>
+        <div
+          className={
+            props.toggleSide ? styles.right_section : styles.right_section_close
+          }
+        >
+          <Outlet />
+        </div>
+      </PeopleContext.Provider>
     </div>
   );
 };

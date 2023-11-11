@@ -1,23 +1,26 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useContext, useEffect } from "react";
 import { SearchBarProps } from "./SearchBar.type";
 import { ApiResponse } from "../../apiService/StarWarsService.type";
 import StarWarsService from "../../apiService/StarWarsService";
+import {
+  InputValueContext,
+  PeopleContext,
+} from "../../contexts/AppContextProvider";
 
 const SearchBar: FC<SearchBarProps> = (props) => {
   const service = new StarWarsService();
-  const { changeState, changeLogStatus, setItems, setURLParams, page } = {
+  const { changeLogStatus, setItems, setURLParams, page } = {
     ...props,
   };
-  const [inputValue, setInputValue] = useState(
-    localStorage.getItem("search-query") || "",
-  );
+  const inputProps = useContext(InputValueContext);
+  const peopleProps = useContext(PeopleContext);
 
   const inputChange = (event: React.FormEvent<HTMLInputElement>) => {
-    setInputValue(event.currentTarget.value);
+    inputProps?.setInputValue(event.currentTarget.value);
   };
 
   const buttonClick = () => {
-    localStorage.setItem("search-query", inputValue);
+    localStorage.setItem("search-query", inputProps?.inputValue || "");
     if (page !== "1") {
       setURLParams({ page: "1" });
       return;
@@ -27,9 +30,12 @@ const SearchBar: FC<SearchBarProps> = (props) => {
 
   const getData = async () => {
     changeLogStatus(true);
-    const data: ApiResponse = await service.fetchData(inputValue, page);
+    const data: ApiResponse = await service.fetchData(
+      inputProps?.inputValue || "",
+      page,
+    );
     setItems(data.count);
-    changeState(data.results);
+    peopleProps?.setPeople(data.results);
     changeLogStatus(false);
   };
 
@@ -40,7 +46,11 @@ const SearchBar: FC<SearchBarProps> = (props) => {
   return (
     <>
       <div>
-        <input type="text" value={inputValue} onChange={inputChange} />
+        <input
+          type="text"
+          value={inputProps?.inputValue}
+          onChange={inputChange}
+        />
         <button onClick={buttonClick}>Search</button>
       </div>
     </>
