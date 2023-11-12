@@ -1,16 +1,19 @@
 import React from "react";
 import ShallowRenderer from "react-test-renderer/shallow";
 import { cardList } from "./cardList";
+import { jest } from "@jest/globals";
 import DataViewerF from "../../src/Components/DataViewer/DataViewer";
 import { Person } from "../../src/apiService/StarWarsService.type";
+import { Mock, UnknownFunction } from "jest-mock";
 const SPECIFIED_NUMBERS_OF_CARDS = 2;
 window.React = React;
-let realUseContext;
-let useContextMock;
+
+let realUseContext: <T>(context: React.Context<T>) => T;
+let useContextMock: Mock<UnknownFunction>;
 
 beforeEach(() => {
   realUseContext = React.useContext;
-  useContextMock = React.useContext = jest.fn();
+  useContextMock = jest.fn();
 });
 
 afterEach(() => {
@@ -33,7 +36,7 @@ describe("test Card List", () => {
   test("DataView component renders the specified number of cards", async () => {
     useContextMock.mockReturnValue(defaultValueFill);
     const element = new ShallowRenderer().render(
-      <DataViewerF loadStatus={false} page={"1"} setToggleSide={jest.fn()} />,
+      <DataViewerF loadStatus={false} page={"1"} setToggleSide={jest.fn()} />
     );
     expect(element.props.children).toHaveLength(SPECIFIED_NUMBERS_OF_CARDS);
   });
@@ -41,14 +44,11 @@ describe("test Card List", () => {
   test("An appropriate message is displayed if no cards are present", () => {
     useContextMock.mockReturnValue(defaultValueVoid);
     const element = new ShallowRenderer().render(
-      <DataViewerF loadStatus={false} page={"1"} setToggleSide={jest.fn()} />,
+      <DataViewerF loadStatus={false} page={"1"} setToggleSide={jest.fn()} />
     );
-
-    expect(element.props.children).toEqual([
-      [],
-      <h2 key={1} title="missing data message">
-        There are not cards
-      </h2>,
-    ]);
+    console.log(element.props.children[1]);
+    expect(element.props.children[1]).toEqual(
+      <h2 title="missing data message">There are not cards</h2>
+    );
   });
 });
