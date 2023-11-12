@@ -5,7 +5,7 @@ import { jest } from "@jest/globals";
 import DataViewerF from "../../src/Components/DataViewer/DataViewer";
 import { Person } from "../../src/apiService/StarWarsService.type";
 import { Mock, UnknownFunction } from "jest-mock";
-const SPECIFIED_NUMBERS_OF_CARDS = 2;
+const SPECIFIED_NUMBERS_OF_CARDS: number = 2;
 window.React = React;
 
 let realUseContext: <T>(context: React.Context<T>) => T;
