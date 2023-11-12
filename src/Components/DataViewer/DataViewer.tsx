@@ -34,7 +34,9 @@ const DataViewerF: FC<DataViewerProps> = (props) => {
         <span className={styles.loader}>loading...</span>
       )}
       {!peopleProps?.people.length && !loadStatus && (
-        <h2>There are not cards</h2>
+        <h2 key={1} title="missing data message">
+          There are not cards
+        </h2>
       )}
     </div>
   );

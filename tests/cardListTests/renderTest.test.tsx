@@ -20,17 +20,35 @@ type PeopleContextType = {
   people: Person[];
   setPeople: React.Dispatch<React.SetStateAction<Person[]>>;
 };
-const defaultValue: PeopleContextType = {
+const defaultValueFill: PeopleContextType = {
   people: cardList,
+  setPeople: jest.fn(),
+};
+const defaultValueVoid: PeopleContextType = {
+  people: [],
   setPeople: jest.fn(),
 };
 
 describe("test Card List", () => {
   test("DataView component renders the specified number of cards", async () => {
-    useContextMock.mockReturnValue(defaultValue);
+    useContextMock.mockReturnValue(defaultValueFill);
     const element = new ShallowRenderer().render(
-      <DataViewerF loadStatus={false} page={"1"} setToggleSide={jest.fn()} />,
+      <DataViewerF loadStatus={false} page={"1"} setToggleSide={jest.fn()} />
     );
     expect(element.props.children).toHaveLength(SPECIFIED_NUMBERS_OF_CARDS);
+  });
+
+  test("An appropriate message is displayed if no cards are present", () => {
+    useContextMock.mockReturnValue(defaultValueVoid);
+    const element = new ShallowRenderer().render(
+      <DataViewerF loadStatus={false} page={"1"} setToggleSide={jest.fn()} />
+    );
+
+    expect(element.props.children).toEqual([
+      [],
+      <h2 key={1} title="missing data message">
+        There are not cards
+      </h2>,
+    ]);
   });
 });
