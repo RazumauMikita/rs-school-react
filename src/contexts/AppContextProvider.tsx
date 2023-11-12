@@ -11,7 +11,7 @@ export type PeopleContextType = {
   setPeople: React.Dispatch<React.SetStateAction<Person[]>>;
 };
 export const InputValueContext = createContext<InputValueContextType | null>(
-  null
+  null,
 );
 
 export const PeopleContext = createContext<PeopleContextType | null>(null);

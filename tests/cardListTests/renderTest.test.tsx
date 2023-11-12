@@ -29,7 +29,7 @@ describe("test Card List", () => {
   test("DataView component renders the specified number of cards", async () => {
     useContextMock.mockReturnValue(defaultValue);
     const element = new ShallowRenderer().render(
-      <DataViewerF loadStatus={false} page={"1"} setToggleSide={jest.fn()} />
+      <DataViewerF loadStatus={false} page={"1"} setToggleSide={jest.fn()} />,
     );
     expect(element.props.children).toHaveLength(SPECIFIED_NUMBERS_OF_CARDS);
   });
