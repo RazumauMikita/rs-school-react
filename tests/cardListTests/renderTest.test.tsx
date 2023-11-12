@@ -36,7 +36,7 @@ describe("test Card List", () => {
   test("DataView component renders the specified number of cards", async () => {
     useContextMock.mockReturnValue(defaultValueFill);
     const element = new ShallowRenderer().render(
-      <DataViewerF loadStatus={false} page={"1"} setToggleSide={jest.fn()} />
+      <DataViewerF loadStatus={false} page={"1"} setToggleSide={jest.fn()} />,
     );
     expect(element.props.children).toHaveLength(SPECIFIED_NUMBERS_OF_CARDS);
   });
@@ -44,11 +44,11 @@ describe("test Card List", () => {
   test("An appropriate message is displayed if no cards are present", () => {
     useContextMock.mockReturnValue(defaultValueVoid);
     const element = new ShallowRenderer().render(
-      <DataViewerF loadStatus={false} page={"1"} setToggleSide={jest.fn()} />
+      <DataViewerF loadStatus={false} page={"1"} setToggleSide={jest.fn()} />,
     );
     console.log(element.props.children[1]);
     expect(element.props.children[1]).toEqual(
-      <h2 title="missing data message">There are not cards</h2>
+      <h2 title="missing data message">There are not cards</h2>,
     );
   });
 });
