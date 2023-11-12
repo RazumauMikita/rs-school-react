@@ -33,6 +33,9 @@ const DataViewerF: FC<DataViewerProps> = (props) => {
       ) : (
         <span className={styles.loader}>loading...</span>
       )}
+      {!peopleProps?.people.length && !loadStatus && (
+        <h2>There are not cards</h2>
+      )}
     </div>
   );
 };

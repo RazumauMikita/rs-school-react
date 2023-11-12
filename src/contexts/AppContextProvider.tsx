@@ -1,17 +1,17 @@
 import { createContext } from "react";
 import { Person } from "../apiService/StarWarsService.type";
 
-type InputValueContextType = {
+export type InputValueContextType = {
   inputValue: string;
   setInputValue: React.Dispatch<React.SetStateAction<string>>;
 };
 
-type PeopleContextType = {
+export type PeopleContextType = {
   people: Person[];
   setPeople: React.Dispatch<React.SetStateAction<Person[]>>;
 };
 export const InputValueContext = createContext<InputValueContextType | null>(
-  null,
+  null
 );
 
 export const PeopleContext = createContext<PeopleContextType | null>(null);

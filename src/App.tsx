@@ -10,7 +10,7 @@ import { InputValueContext } from "./contexts/AppContextProvider.tsx";
 const App: FC = () => {
   const [toggleSide, setToggleSide] = useState(false);
   const [inputValue, setInputValue] = useState<string>(
-    localStorage.getItem("search-query") || ""
+    localStorage.getItem("search-query") || "",
   );
   return (
     <>
