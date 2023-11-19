@@ -2,16 +2,19 @@ import { FC } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { appSlice } from "../../store/reducers/AppSlice";
 
-const TOTAL_ITEMS = 12;
+const getTotalPageCount = (totalItems: number, itemsLimit: number): number =>
+  Math.ceil(totalItems / itemsLimit);
 
-const getTotalPageCount = (itemsLimit: number): number =>
-  Math.ceil(TOTAL_ITEMS / itemsLimit);
+interface TestI {
+  items: number | undefined;
+}
 
-const NewPagination: FC = () => {
+const NewPagination: FC<TestI> = (props) => {
+  const { items } = props;
   const { currentPage, limit } = useAppSelector((state) => state.appReducer);
   const { setNextPage, setPrevPage } = appSlice.actions;
   const dispatch = useAppDispatch();
-  const totalPages = getTotalPageCount(limit);
+  const totalPages = items ? getTotalPageCount(items, limit) : 0;
 
   const onPrevPageClick = () => {
     dispatch(setPrevPage());

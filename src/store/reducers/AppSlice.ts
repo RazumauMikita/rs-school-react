@@ -1,11 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-
-interface AppState {
-  limit: number;
-  isDetailOpen: boolean;
-  searchQuery: string;
-  currentPage: number;
-}
+import { AppState } from "./AppSlice.type";
 
 const initialState: AppState = {
   limit: 3,

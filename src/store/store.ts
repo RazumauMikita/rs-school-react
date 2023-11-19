@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { movieAPI } from "../apiService/UserServices";
+import { movieAPI } from "../apiService/MovieService";
 import appReducer from "./reducers/AppSlice";
 const rootReducer = combineReducers({
   appReducer,
