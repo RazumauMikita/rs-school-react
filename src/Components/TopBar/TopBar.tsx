@@ -14,6 +14,7 @@ const TopBar: FC = () => {
 
   const buttonClickHandler = () => {
     dispatch(setSearchQuery(inputValue));
+    localStorage.setItem("search-query", inputValue);
   };
 
   return (
