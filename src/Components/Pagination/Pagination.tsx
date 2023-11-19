@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { appSlice } from "../../store/reducers/AppSlice";
 
-const TOTAL_ITEMS = 10;
+const TOTAL_ITEMS = 12;
 
 const getTotalPageCount = (itemsLimit: number): number =>
   Math.ceil(TOTAL_ITEMS / itemsLimit);

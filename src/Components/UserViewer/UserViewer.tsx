@@ -7,7 +7,7 @@ import NewPagination from "../Pagination/Pagination";
 
 const UserViewer: FC = () => {
   const { searchQuery, limit, currentPage } = useAppSelector(
-    (state) => state.appReducer
+    (state) => state.appReducer,
   );
   const { data, isLoading } = movieAPI.useFetchAllMoviesQuery({
     limit: limit,
