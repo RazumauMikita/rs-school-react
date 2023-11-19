@@ -1,6 +1,9 @@
-import { Component } from "react";
-import { ErrorBoundaryProps } from "./apiTypes";
+import { Component, ReactNode } from "react";
 
+interface ErrorBoundaryProps {
+  fallback: ReactNode;
+  children: ReactNode;
+}
 export default class ErrorBoundary extends Component<ErrorBoundaryProps> {
   state = { hasError: false };
 
