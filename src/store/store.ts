@@ -1,16 +1,16 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { userAPI } from "../apiService/UserServices";
+import { movieAPI } from "../apiService/UserServices";
 import appReducer from "./reducers/AppSlice";
 const rootReducer = combineReducers({
   appReducer,
-  [userAPI.reducerPath]: userAPI.reducer,
+  [movieAPI.reducerPath]: movieAPI.reducer,
 });
 
 export const setupStore = () => {
   return configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => {
-      return getDefaultMiddleware().concat(userAPI.middleware);
+      return getDefaultMiddleware().concat(movieAPI.middleware);
     },
   });
 };

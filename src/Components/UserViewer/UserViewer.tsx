@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { userAPI } from "../../apiService/UserServices";
+import { movieAPI } from "../../apiService/UserServices";
 import UserCard from "../UserCard/UserCard";
 import { useAppSelector } from "../../hooks/redux";
 import LimitSetter from "../LimitSetter/LimitSetter";
@@ -7,9 +7,9 @@ import NewPagination from "../Pagination/Pagination";
 
 const UserViewer: FC = () => {
   const { searchQuery, limit, currentPage } = useAppSelector(
-    (state) => state.appReducer,
+    (state) => state.appReducer
   );
-  const { data: users, isLoading } = userAPI.useFetchAllUsersQuery({
+  const { data, isLoading } = movieAPI.useFetchAllMoviesQuery({
     limit: limit,
     search: searchQuery,
     page: currentPage,
@@ -22,12 +22,12 @@ const UserViewer: FC = () => {
       {!isLoading && <LimitSetter />}
       {!isLoading && <NewPagination />}
       {isLoading && <p>Loading...</p>}
-      {!isLoading && users?.length === 0 && <p>Not users</p>}
-      {users &&
-        users.map((user) => {
+      {!isLoading && data?.data.movies.length === 0 && <p>Not users</p>}
+      {data?.data.movies &&
+        data.data.movies.map((movie) => {
           return (
-            <div key={user.id}>
-              <UserCard user={user} />
+            <div key={movie.id}>
+              <UserCard user={movie} />
             </div>
           );
         })}

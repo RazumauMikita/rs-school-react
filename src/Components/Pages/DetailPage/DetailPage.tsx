@@ -1,18 +1,16 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
-import { userAPI } from "../../../apiService/UserServices";
+import { movieAPI } from "../../../apiService/UserServices";
 import { appSlice } from "../../../store/reducers/AppSlice";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { useAppDispatch } from "../../../hooks/redux";
 
 const DetailPage: FC = () => {
   const { id } = useParams();
-  const { data: user, isLoading } = userAPI.useFetchUserByIdQuery(Number(id));
+  const { data, isLoading } = movieAPI.useFetchMovieByIdQuery(Number(id));
   const { closeDetails } = appSlice.actions;
-  const { isDetailOpen } = useAppSelector((state) => state.appReducer);
   const dispatch = useAppDispatch();
   const closeSideSection = () => {
     dispatch(closeDetails());
-    console.log(isDetailOpen);
   };
 
   return (
@@ -20,10 +18,10 @@ const DetailPage: FC = () => {
       <button onClick={closeSideSection}>CLOSE</button>
       {!isLoading ? (
         <div>
-          <h1>{user?.name}</h1>
-          <p>Email - - {user?.email}</p>
-          <p>Phone - {user?.phone}</p>
-          <p>User ID - {user?.id}</p>
+          <h1>{data?.data.movie.title}</h1>
+          <p>Rating - {data?.data.movie.rating}</p>
+          <p>Year - {data?.data.movie.year}</p>
+          <p>Movie URL - {data?.data.movie.url}</p>
         </div>
       ) : (
         <p>Loading...</p>

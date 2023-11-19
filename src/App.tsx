@@ -13,7 +13,7 @@ const App: FC = () => {
       <Provider store={store}>
         <Routes>
           <Route path="/" element={<NewMainPAge />}>
-            <Route path="/users/:id" element={<DetailPage />} />
+            <Route path="/movies/:id" element={<DetailPage />} />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

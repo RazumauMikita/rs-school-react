@@ -1,10 +1,10 @@
 import { FC } from "react";
-import { IUser } from "../../apiService/UserServices";
+import { IMovie } from "../../apiService/UserServices";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { appSlice } from "../../store/reducers/AppSlice";
 interface UserCardProps {
-  user: IUser;
+  user: IMovie;
 }
 const UserCard: FC<UserCardProps> = (props) => {
   const { user } = props;
@@ -26,12 +26,12 @@ const UserCard: FC<UserCardProps> = (props) => {
     >
       <Link
         to={{
-          pathname: `/users/${user.id}`,
+          pathname: `/movies/${user.id}`,
           search: `page=${currentPage}&limit=${limit}`,
         }}
       >
         <h3 style={{ fontSize: "20px" }} onClick={openDetailHandler}>
-          {user.name}
+          {user.title}
         </h3>
       </Link>
     </div>

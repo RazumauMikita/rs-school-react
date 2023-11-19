@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
-export interface IUser {
+export interface IMovie {
   id: number;
-  name: string;
-  email: string;
-  phone: string;
+  title: string;
+  year: number;
+  rating: number;
+  url: string;
 }
 
 export interface QueryArgs {
@@ -13,25 +14,44 @@ export interface QueryArgs {
   search: string;
 }
 
-export const userAPI = createApi({
-  reducerPath: "userAPI",
+export interface AllMoviesResponse {
+  status: string;
+  status_message: string;
+  data: {
+    movie_count: number;
+    limit: number;
+    page_number: number;
+    movies: IMovie[];
+  };
+}
+
+export interface MovieResponse {
+  status: string;
+  status_message: string;
+  data: {
+    movie: IMovie;
+  };
+}
+
+export const movieAPI = createApi({
+  reducerPath: "movieAPI",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://jsonplaceholder.typicode.com/",
+    baseUrl: "https://yts.mx",
   }),
   endpoints: (build) => ({
-    fetchAllUsers: build.query<IUser[], QueryArgs>({
+    fetchAllMovies: build.query<AllMoviesResponse, QueryArgs>({
       query: ({ limit, page, search }) => ({
-        url: "/users",
+        url: "/api/v2/list_movies.json",
         params: {
-          _limit: limit,
-          _page: page,
-          _search: search,
+          limit: limit,
+          page: page,
+          query_term: search,
         },
       }),
     }),
-    fetchUserById: build.query<IUser, number>({
+    fetchMovieById: build.query<MovieResponse, number>({
       query: (id: number) => ({
-        url: `/users/${id}`,
+        url: `/api/v2/movie_details.json?movie_id=${id}`,
       }),
     }),
   }),
