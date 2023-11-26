@@ -4,19 +4,24 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
+    "dev": "next dev",
+    "build": "tsc && next build",
     "lint": "eslint . --ext ts,tsx --fix --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format:fix": "prettier . --write",
     "prepare": "husky install",
-    "test": "jest"
+    "test": "jest",
+    "start": "next start"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
     "@types/react-redux": "^7.1.30",
+    "cross-fetch": "^4.0.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
+    "next": "^14.0.3",
+    "next-redux-wrapper": "^8.1.0",
+    "node-fetch": "^3.3.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.1.3",

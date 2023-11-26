@@ -4,12 +4,18 @@ import {
   QueryArgs,
   MovieResponse,
 } from "./MovieService.type";
+import { HYDRATE } from "next-redux-wrapper";
 
 export const movieAPI = createApi({
   reducerPath: "movieAPI",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://yts.mx",
   }),
+  extractRehydrationInfo(action, { reducerPath }) {
+    if (action.type === HYDRATE) {
+      return action.payload[reducerPath];
+    }
+  },
   endpoints: (build) => ({
     fetchAllMovies: build.query<AllMoviesResponse, QueryArgs>({
       query: ({ limit, page, search }) => ({
@@ -28,3 +34,10 @@ export const movieAPI = createApi({
     }),
   }),
 });
+
+export const {
+  useFetchAllMoviesQuery,
+  useFetchMovieByIdQuery,
+  util: { getRunningQueriesThunk },
+} = movieAPI;
+export const { fetchAllMovies, fetchMovieById } = movieAPI.endpoints;

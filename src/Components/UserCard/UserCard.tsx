@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { IMovie } from "../../apiService/MovieService";
+import { IMovie } from "../../apiService/MovieService.type";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { appSlice } from "../../store/reducers/AppSlice";
