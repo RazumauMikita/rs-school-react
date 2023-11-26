@@ -3,16 +3,13 @@ import React, { FC } from 'react';
 import { useAppDispatch, useAppSelector } from '../../src/hooks/redux';
 import { appSlice } from '../../src/store/reducers/AppSlice';
 import { selectApp } from '../../src/store/reducers/selectors';
+import { IPagination } from './Pagination.type';
+import styles from './Pagination.module.css';
 
 const getTotalPageCount = (totalItems: number, itemsLimit: number): number =>
   Math.ceil(totalItems / itemsLimit);
 
-interface TestI {
-  items: number | undefined;
-}
-
-const NewPagination: FC<TestI> = (props) => {
-  const { items } = props;
+const NewPagination: FC<IPagination> = ({ items }) => {
   const { currentPage, limit } = useAppSelector(selectApp);
   const { setNextPage, setPrevPage } = appSlice.actions;
   const dispatch = useAppDispatch();
@@ -27,7 +24,7 @@ const NewPagination: FC<TestI> = (props) => {
   };
 
   return (
-    <div>
+    <div className={styles.paginationContainer}>
       <button type="button" onClick={onPrevPageClick} disabled={currentPage === 1}>
         prev
       </button>

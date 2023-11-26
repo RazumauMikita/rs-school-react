@@ -6,7 +6,7 @@ import styles from './layout.module.css';
 import TopBar from './TopBar/TopBar';
 import MovieList from './MovieList/SSR/MovieList';
 
-export default function Layout({ children }) {
+const Layout = ({ children }) => {
   return (
     <div className={styles.layoutContainer}>
       <Head>
@@ -22,4 +22,6 @@ export default function Layout({ children }) {
       <div className={styles.outletContainer}>{children}</div>
     </div>
   );
-}
+};
+
+export default Layout;
