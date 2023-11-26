@@ -1,8 +1,8 @@
-import { FC } from "react";
-import { IMovie } from "../../apiService/MovieService.type";
-import { Link } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { appSlice } from "../../store/reducers/AppSlice";
+import { FC } from 'react';
+import { IMovie } from '../../apiService/MovieService.type';
+import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { appSlice } from '../../store/reducers/AppSlice';
 interface UserCardProps {
   user: IMovie;
 }
@@ -17,11 +17,11 @@ const UserCard: FC<UserCardProps> = (props) => {
   return (
     <div
       style={{
-        width: "170px",
-        padding: "5px 10px",
-        border: "2px solid black",
-        marginTop: "10px",
-        textAlign: "center",
+        width: '170px',
+        padding: '5px 10px',
+        border: '2px solid black',
+        marginTop: '10px',
+        textAlign: 'center',
       }}
     >
       <Link
@@ -30,7 +30,7 @@ const UserCard: FC<UserCardProps> = (props) => {
           search: `page=${currentPage}&limit=${limit}`,
         }}
       >
-        <h3 style={{ fontSize: "20px" }} onClick={openDetailHandler}>
+        <h3 style={{ fontSize: '20px' }} onClick={openDetailHandler}>
           {user.title}
         </h3>
       </Link>

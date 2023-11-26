@@ -1,10 +1,10 @@
-import React from "react";
-import Head from "next/head";
+import React from 'react';
+import Head from 'next/head';
 
-import styles from "./layout.module.css";
+import styles from './layout.module.css';
 
-import TopBar from "./TopBar/TopBar";
-import MovieList from "./MovieList/SSR/MovieList";
+import TopBar from './TopBar/TopBar';
+import MovieList from './MovieList/SSR/MovieList';
 
 export default function Layout({ children }) {
   return (

@@ -1,8 +1,8 @@
-import React from "react";
-import { fetch, Headers, Request, Response } from "cross-fetch";
+import React from 'react';
+import { fetch, Headers, Request, Response } from 'cross-fetch';
 
-import Layout from "../components/layout";
-import { wrapper } from "../src/store/store";
+import Layout from '../components/layout';
+import { wrapper } from '../src/store/store';
 
 Object.assign(globalThis, {
   fetch,

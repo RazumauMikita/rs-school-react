@@ -1,6 +1,6 @@
-import { FC, useState } from "react";
-import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { appSlice } from "../../store/reducers/AppSlice";
+import { FC, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { appSlice } from '../../store/reducers/AppSlice';
 
 const TopBar: FC = () => {
   const { searchQuery } = useAppSelector((state) => state.appReducer);
@@ -15,16 +15,16 @@ const TopBar: FC = () => {
   const buttonClickHandler = () => {
     dispatch(setSearchQuery(inputValue));
     dispatch(setCurrentPage(1));
-    localStorage.setItem("search-query", inputValue);
+    localStorage.setItem('search-query', inputValue);
   };
 
   return (
     <>
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
         <input type="text" value={inputValue} onChange={inputChangeHandler} />

@@ -1,8 +1,8 @@
-import React, { FC } from "react";
+import React, { FC } from 'react';
 
-import { useAppDispatch, useAppSelector } from "../../src/hooks/redux";
-import { appSlice } from "../../src/store/reducers/AppSlice";
-import { selectApp } from "../../src/store/reducers/selectors";
+import { useAppDispatch, useAppSelector } from '../../src/hooks/redux';
+import { appSlice } from '../../src/store/reducers/AppSlice';
+import { selectApp } from '../../src/store/reducers/selectors';
 
 const getTotalPageCount = (totalItems: number, itemsLimit: number): number =>
   Math.ceil(totalItems / itemsLimit);
@@ -28,21 +28,13 @@ const NewPagination: FC<TestI> = (props) => {
 
   return (
     <div>
-      <button
-        type="button"
-        onClick={onPrevPageClick}
-        disabled={currentPage === 1}
-      >
+      <button type="button" onClick={onPrevPageClick} disabled={currentPage === 1}>
         prev
       </button>
       <span>
         {currentPage} / {totalPages}
       </span>
-      <button
-        type="button"
-        onClick={onNextPageClick}
-        disabled={currentPage === totalPages}
-      >
+      <button type="button" onClick={onNextPageClick} disabled={currentPage === totalPages}>
         next
       </button>
     </div>

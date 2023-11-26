@@ -1,8 +1,8 @@
-import { FC } from "react";
-import { useParams } from "react-router-dom";
-import { movieAPI } from "../../../apiService/MovieService";
-import { appSlice } from "../../../store/reducers/AppSlice";
-import { useAppDispatch } from "../../../hooks/redux";
+import { FC } from 'react';
+import { useParams } from 'react-router-dom';
+import { movieAPI } from '../../../apiService/MovieService';
+import { appSlice } from '../../../store/reducers/AppSlice';
+import { useAppDispatch } from '../../../hooks/redux';
 
 const DetailPage: FC = () => {
   const { id } = useParams();

@@ -1,16 +1,16 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { AppState } from "./AppSlice.type";
+import { AppState } from './AppSlice.type';
 
 const initialState: AppState = {
   limit: 4,
   isDetailOpen: false,
-  searchQuery: "",
+  searchQuery: '',
   currentPage: 3,
 };
 
 export const appSlice = createSlice({
-  name: "app",
+  name: 'app',
   initialState,
   reducers: {
     openDetails(state) {

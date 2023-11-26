@@ -1,9 +1,9 @@
-import React, { FC } from "react";
-import { useRouter } from "next/dist/client/router";
+import React, { FC } from 'react';
+import { useRouter } from 'next/dist/client/router';
 
-import { useFetchMovieByIdQuery } from "../src/apiService/MovieService";
-import { appSlice } from "../src/store/reducers/AppSlice";
-import { useAppDispatch } from "../src/hooks/redux";
+import { useFetchMovieByIdQuery } from '../src/apiService/MovieService';
+import { appSlice } from '../src/store/reducers/AppSlice';
+import { useAppDispatch } from '../src/hooks/redux';
 
 const DetailPage: FC = () => {
   const router = useRouter();
@@ -14,7 +14,7 @@ const DetailPage: FC = () => {
   const dispatch = useAppDispatch();
   const closeSideSection = () => {
     dispatch(closeDetails());
-    router.replace("/");
+    router.replace('/');
   };
 
   return (

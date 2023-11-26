@@ -1,6 +1,6 @@
-import { ChangeEvent, FC } from "react";
-import { appSlice } from "../../store/reducers/AppSlice";
-import { useAppDispatch } from "../../hooks/redux";
+import { ChangeEvent, FC } from 'react';
+import { appSlice } from '../../store/reducers/AppSlice';
+import { useAppDispatch } from '../../hooks/redux';
 const START_PAGE: number = 1;
 enum itemLimits {
   one = 3,
@@ -16,7 +16,7 @@ const LimitSetter: FC = () => {
     dispatch(setCurrentPage(START_PAGE));
   };
   return (
-    <div style={{ display: "flex", gap: "15px" }}>
+    <div style={{ display: 'flex', gap: '15px' }}>
       <span>Limit items per page: </span>
       <select onChange={selectInputHandler}>
         <option value="3" defaultChecked>
