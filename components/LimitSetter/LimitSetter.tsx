@@ -2,6 +2,7 @@ import React, { ChangeEvent, FC } from 'react';
 
 import { appSlice } from '../../src/store/reducers/AppSlice';
 import { useAppDispatch } from '../../src/hooks/redux';
+import styles from './LimitSetter.module.css';
 
 const START_PAGE: number = 1;
 enum itemLimits {
@@ -18,7 +19,7 @@ const LimitSetter: FC = () => {
     dispatch(setCurrentPage(START_PAGE));
   };
   return (
-    <div style={{ display: 'flex', gap: '15px' }}>
+    <div className={styles.limitSetterContainer}>
       <span>Limit items per page: </span>
       <select onChange={selectInputHandler}>
         <option value="3" defaultChecked>
