@@ -1,7 +1,7 @@
-import { FC } from "react";
+import React, { FC } from "react";
+
 import { useAppDispatch, useAppSelector } from "../../src/hooks/redux";
 import { appSlice } from "../../src/store/reducers/AppSlice";
-import React from "react";
 import { selectApp } from "../../src/store/reducers/selectors";
 
 const getTotalPageCount = (totalItems: number, itemsLimit: number): number =>

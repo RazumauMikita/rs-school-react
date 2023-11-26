@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { HYDRATE } from "next-redux-wrapper";
+
 import {
   AllMoviesResponse,
   QueryArgs,
   MovieResponse,
 } from "./MovieService.type";
-import { HYDRATE } from "next-redux-wrapper";
 
 export const movieAPI = createApi({
   reducerPath: "movieAPI",

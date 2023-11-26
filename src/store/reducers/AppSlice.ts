@@ -1,10 +1,11 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+
 import { AppState } from "./AppSlice.type";
 
 const initialState: AppState = {
   limit: 4,
   isDetailOpen: false,
-  searchQuery: /*localStorage.getItem("search-query") ||*/ "",
+  searchQuery: "",
   currentPage: 3,
 };
 

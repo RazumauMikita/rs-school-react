@@ -1,7 +1,9 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
+import { createWrapper } from "next-redux-wrapper";
+
 import { movieAPI } from "../apiService/MovieService";
 import appReducer from "./reducers/AppSlice";
-import { createWrapper } from "next-redux-wrapper";
+
 const rootReducer = combineReducers({
   appReducer,
   [movieAPI.reducerPath]: movieAPI.reducer,

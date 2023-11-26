@@ -1,7 +1,11 @@
-import Head from "next/head";
 import React from "react";
-import MovieList from "./MovieList/SSR/MovieList";
+import Head from "next/head";
+
 import styles from "./layout.module.css";
+
+import TopBar from "./TopBar/TopBar";
+import MovieList from "./MovieList/SSR/MovieList";
+
 export default function Layout({ children }) {
   return (
     <div className={styles.layoutContainer}>
@@ -12,9 +16,9 @@ export default function Layout({ children }) {
         <title>Movies</title>
       </Head>
       <div className={styles.mainContainer}>
+        <TopBar />
         <MovieList />
       </div>
-
       <div className={styles.outletContainer}>{children}</div>
     </div>
   );

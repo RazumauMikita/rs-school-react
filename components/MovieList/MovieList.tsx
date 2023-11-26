@@ -1,8 +1,10 @@
 import React, { FC } from "react";
+import Link from "next/link";
+
 import { useFetchAllMoviesQuery } from "../../src/apiService/MovieService";
 import { useAppSelector } from "../../src/hooks/redux";
-import Link from "next/link";
 import { selectApp } from "../../src/store/reducers/selectors";
+
 import Pagination from "../Pagination/Pagination";
 import LimitSetter from "../LimitSetter/LimitSetter";
 

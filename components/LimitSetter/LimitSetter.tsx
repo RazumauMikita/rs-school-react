@@ -1,7 +1,8 @@
-import { ChangeEvent, FC } from "react";
+import React, { ChangeEvent, FC } from "react";
+
 import { appSlice } from "../../src/store/reducers/AppSlice";
 import { useAppDispatch } from "../../src/hooks/redux";
-import React from "react";
+
 const START_PAGE: number = 1;
 enum itemLimits {
   one = 3,
