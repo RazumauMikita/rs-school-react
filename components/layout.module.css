@@ -1,0 +1,16 @@
+.layoutContainer {
+  display: flex;
+}
+
+.mainContainer {
+  padding: 10px 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.outletContainer {
+  padding: 10px 5px;
+  max-width: 350px;
+}

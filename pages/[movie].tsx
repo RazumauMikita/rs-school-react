@@ -14,6 +14,7 @@ const DetailPage: FC = () => {
   const dispatch = useAppDispatch();
   const closeSideSection = () => {
     dispatch(closeDetails());
+    router.replace("/");
   };
 
   return (

@@ -1,9 +1,9 @@
-import MovieList from "./movieList";
-import { wrapper } from "../../src/store/store";
+import MovieList from "../MovieList";
+import { wrapper } from "../../../src/store/store";
 import {
   fetchAllMovies,
   getRunningQueriesThunk,
-} from "../../src/apiService/MovieService";
+} from "../../../src/apiService/MovieService";
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
@@ -22,7 +22,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     return {
       props: {},
     };
-  },
+  }
 );
 
 export default MovieList;

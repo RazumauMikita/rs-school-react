@@ -3,6 +3,8 @@ import { useFetchAllMoviesQuery } from "../../src/apiService/MovieService";
 import { useAppSelector } from "../../src/hooks/redux";
 import Link from "next/link";
 import { selectApp } from "../../src/store/reducers/selectors";
+import Pagination from "../Pagination/Pagination";
+import LimitSetter from "../LimitSetter/LimitSetter";
 
 const MovieList: FC = () => {
   const { searchQuery, limit, currentPage } = useAppSelector(selectApp);
@@ -17,16 +19,23 @@ const MovieList: FC = () => {
     <div
       style={{ display: "flex", alignItems: "center", flexDirection: "column" }}
     >
-      {isFetching && <p>Loading</p>}
-      {data?.data.movies.map((movie) => {
-        return (
-          <div key={movie.id}>
-            <Link href={`${movie.id}`}>
-              <div>{movie.title}</div>
-            </Link>
-          </div>
-        );
-      })}
+      {!isFetching ? (
+        <>
+          <LimitSetter />
+          <Pagination items={data?.data.movie_count} />
+          {data?.data.movies.map((movie) => {
+            return (
+              <div key={movie.id}>
+                <Link href={`${movie.id}`}>
+                  <div>{movie.title}</div>
+                </Link>
+              </div>
+            );
+          })}
+        </>
+      ) : (
+        <p>Loading...</p>
+      )}
     </div>
   );
 };
