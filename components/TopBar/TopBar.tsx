@@ -3,9 +3,10 @@ import React, { FC, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../src/hooks/redux';
 import { appSlice } from '../../src/store/reducers/AppSlice';
 import { selectApp } from '../../src/store/reducers/selectors';
+import router from 'next/router';
 
 const TopBar: FC = () => {
-  const { searchQuery } = useAppSelector(selectApp);
+  const { searchQuery, limit } = useAppSelector(selectApp);
   const { setSearchQuery, setCurrentPage } = appSlice.actions;
   const [inputValue, setInputValue] = useState<string>(searchQuery);
   const dispatch = useAppDispatch();
@@ -17,6 +18,7 @@ const TopBar: FC = () => {
   const buttonClickHandler = () => {
     dispatch(setSearchQuery(inputValue));
     dispatch(setCurrentPage(1));
+    router.push(`/?limit=${limit}&page=1&search=${inputValue}`);
     localStorage.setItem('search-query', inputValue);
   };
 

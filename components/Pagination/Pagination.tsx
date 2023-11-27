@@ -5,22 +5,30 @@ import { appSlice } from '../../src/store/reducers/AppSlice';
 import { selectApp } from '../../src/store/reducers/selectors';
 import { IPagination } from './Pagination.type';
 import styles from './Pagination.module.css';
+import { useRouter } from 'next/router';
 
 const getTotalPageCount = (totalItems: number, itemsLimit: number): number =>
   Math.ceil(totalItems / itemsLimit);
 
 const NewPagination: FC<IPagination> = ({ items }) => {
-  const { currentPage, limit } = useAppSelector(selectApp);
+  const router = useRouter();
+  const { currentPage, limit, searchQuery } = useAppSelector(selectApp);
   const { setNextPage, setPrevPage } = appSlice.actions;
   const dispatch = useAppDispatch();
   const totalPages = items ? getTotalPageCount(items, limit) : 0;
 
+  const setSearchURLParams = (num: number) => {
+    router.push(`/?limit=${limit}&page=${currentPage + num}&search=${searchQuery}`);
+  };
+
   const onPrevPageClick = () => {
     dispatch(setPrevPage());
+    setSearchURLParams(-1);
   };
 
   const onNextPageClick = () => {
     dispatch(setNextPage());
+    setSearchURLParams(1);
   };
 
   return (

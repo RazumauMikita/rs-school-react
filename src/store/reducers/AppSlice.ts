@@ -3,10 +3,10 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { AppState } from './AppSlice.type';
 
 const initialState: AppState = {
-  limit: 4,
+  limit: 3,
   isDetailOpen: false,
   searchQuery: '',
-  currentPage: 3,
+  currentPage: 1,
 };
 
 export const appSlice = createSlice({

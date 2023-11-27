@@ -16,17 +16,21 @@ const MovieList: FC = () => {
     search: searchQuery,
     page: currentPage,
   });
-
   return (
     <div style={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+      <LimitSetter />
       {!isFetching ? (
         <>
-          <LimitSetter />
           <Pagination items={data?.data.movie_count} />
           {data?.data.movies.map((movie) => {
             return (
               <div key={movie.id}>
-                <Link href={`${movie.id}`}>
+                <Link
+                  href={{
+                    pathname: movie.id.toString(),
+                    query: { limit: limit, page: currentPage, search: searchQuery },
+                  }}
+                >
                   <div>{movie.title}</div>
                 </Link>
               </div>

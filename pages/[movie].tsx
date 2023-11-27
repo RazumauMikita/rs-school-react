@@ -3,23 +3,26 @@ import { useRouter } from 'next/dist/client/router';
 
 import { useFetchMovieByIdQuery } from '../src/apiService/MovieService';
 import { appSlice } from '../src/store/reducers/AppSlice';
-import { useAppDispatch } from '../src/hooks/redux';
+import { useAppDispatch, useAppSelector } from '../src/hooks/redux';
+import Link from 'next/link';
+import { selectApp } from '../src/store/reducers/selectors';
 
 const DetailPage: FC = () => {
   const router = useRouter();
   const id = router.query.movie;
-
+  const { searchQuery, currentPage, limit } = useAppSelector(selectApp);
   const { data, isFetching } = useFetchMovieByIdQuery(Number(id));
   const { closeDetails } = appSlice.actions;
   const dispatch = useAppDispatch();
   const closeSideSection = () => {
     dispatch(closeDetails());
-    router.replace('/');
   };
 
   return (
     <div>
-      <button onClick={closeSideSection}>CLOSE</button>
+      <Link href={`/?limit=${limit}&page=${currentPage}&search=${searchQuery}`}>
+        <button onClick={closeSideSection}>CLOSE</button>
+      </Link>
       {!isFetching ? (
         <div>
           <h1>{data?.data.movie.title}</h1>
