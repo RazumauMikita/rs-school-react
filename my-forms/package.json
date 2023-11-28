@@ -11,6 +11,11 @@
     "format:fix": "prettier . --write",
     "prepare": "husky install"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm lint"
+    }
+  },
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
