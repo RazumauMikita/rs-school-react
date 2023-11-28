@@ -4,16 +4,24 @@ import { setupStore } from './store/store';
 import MainPage from './Components/Pages/MainPage/MainPage';
 import ReactHookFormPage from './Components/Pages/ReactHookFormPage/ReactHookFormPage';
 import UncontrolledFormPage from './Components/Pages/UncontrolledFormPage/UncontrolledFormPage';
+import { ROUTES } from './utils/constants/routes';
 
 const store = setupStore();
+
 function App() {
   return (
     <>
       <Provider store={store}>
         <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route path="/react-hook-form" element={<ReactHookFormPage />} />
-          <Route path="/uncontrolled-form" element={<UncontrolledFormPage />} />
+          <Route path={ROUTES.MAIN_PAGE} element={<MainPage />} />
+          <Route
+            path={ROUTES.REACT_HOOK_FORM_PAGE}
+            element={<ReactHookFormPage />}
+          />
+          <Route
+            path={ROUTES.UNCONTROLLED_FORM_PAGE}
+            element={<UncontrolledFormPage />}
+          />
         </Routes>
       </Provider>
     </>
