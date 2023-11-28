@@ -1,14 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { FormState } from './slice.type';
 
-interface formState {
-  name: string;
-}
-
-const initialState: formState = {
+const initialState: FormState = {
   name: '',
 };
 
-export const formSlice = createSlice({
+export const uncontrolledFormSlice = createSlice({
   name: 'form',
   initialState,
   reducers: {
@@ -18,4 +15,4 @@ export const formSlice = createSlice({
   },
 });
 
-export default formSlice.reducer;
+export default uncontrolledFormSlice.reducer;

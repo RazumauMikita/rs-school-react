@@ -1,3 +1,3 @@
 import { RootState } from '../store';
 
-export const selectApp = (state: RootState) => state.formReducer;
+export const selectApp = (state: RootState) => state;

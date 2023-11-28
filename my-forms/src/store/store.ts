@@ -1,9 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import formReducer from './reducers/formSlice';
-
+import reactHookFormReducer from './reducers/reactHookFormSlice';
+import uncontrolledFormReducer from './reducers/uncontrolledFormSlice';
 const rootReducer = combineReducers({
-  formReducer,
+  reactHookFormReducer,
+  uncontrolledFormReducer,
 });
 
 export const setupStore = () => {
