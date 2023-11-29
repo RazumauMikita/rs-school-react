@@ -1,16 +1,15 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { FormState } from './slice.type';
-
-const initialState: FormState = {
-  name: '',
-};
+import { FormState, initialState } from './slice.type';
 
 export const uncontrolledFormSlice = createSlice({
-  name: 'form',
+  name: 'uncontrolledForm',
   initialState,
   reducers: {
-    setName(state, action: PayloadAction<string>) {
-      state.name = action.payload;
+    setImage(state, action: PayloadAction<string>) {
+      state.image = action.payload;
+    },
+    setData(state, action: PayloadAction<FormState>) {
+      Object.assign(state, action.payload);
     },
   },
 });
