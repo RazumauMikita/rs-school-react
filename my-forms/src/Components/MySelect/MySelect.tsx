@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import { MySelectProps } from './MySelect.type';
 
 const MtSelect: FC<MySelectProps> = ({ id, title, refObject, options }) => {

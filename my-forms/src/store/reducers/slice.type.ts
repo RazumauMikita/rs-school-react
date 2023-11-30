@@ -1,4 +1,4 @@
-import { countryList } from '../../utils/countryList';
+import { countryList } from '../../utils/data/countryList';
 
 export interface FormState {
   name: string;

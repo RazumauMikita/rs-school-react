@@ -1,10 +1,12 @@
 import { Provider } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
+
 import { setupStore } from './store/store';
-import MainPage from './Components/Pages/MainPage/MainPage';
-import ReactHookFormPage from './Components/Pages/ReactHookFormPage/ReactHookFormPage';
-import UncontrolledFormPage from './Components/Pages/UncontrolledFormPage/UncontrolledFormPage';
 import { ROUTES } from './utils/constants/routes';
+
+import MainPage from './Components/Pages/MainPage';
+import ReactHookFormPage from './Components/Pages/ReactHookFormPage';
+import UncontrolledFormPage from './Components/Pages/UncontrolledFormPage';
 
 const store = setupStore();
 

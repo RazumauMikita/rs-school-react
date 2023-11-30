@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { initialStateData } from './slice.type';
 
 export const dataSlice = createSlice({

@@ -1,23 +1,17 @@
 import { FC, SyntheticEvent, useRef } from 'react';
 import * as yup from 'yup';
+
+import styles from './UncontrolledForm.module.css';
 import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { uncontrolledFormSlice } from '../../../store/reducers/uncontrolledFormSlice';
-import styles from './UncontrolledForm.module.css';
-import MyInput from '../../MyInput/MyInput';
 import { selectUncontrolledForm } from '../../../store/reducers/selector';
-import MySelect from '../../MySelect/MySelect';
-import { genderList } from '../../../utils/genderList';
-import { countryList } from '../../../utils/countryList';
+import { genderList } from '../../../utils/data/genderList';
+import { countryList } from '../../../utils/data/countryList';
 import { FormState } from '../../../store/reducers/slice.type';
+import { schema } from '../../../utils/validation/validationSchema';
 
-const MAX_FILE_SIZE = 102400;
-
-const validFileExtensions = ['png', 'jpg'];
-
-const isValidFileExtension = (fileName: string) => {
-  const extension: string = fileName.split('.')[1];
-  return validFileExtensions.includes(extension);
-};
+import MyInput from '../../MyInput/MyInput';
+import MySelect from '../../MySelect/MySelect';
 
 const UncontrolledForm: FC = () => {
   const nameInputRef = useRef<HTMLInputElement>(null);
@@ -29,58 +23,6 @@ const UncontrolledForm: FC = () => {
   const genderInputRef = useRef<HTMLSelectElement>(null);
   const countryInputRef = useRef<HTMLSelectElement>(null);
   const acceptInputRef = useRef<HTMLInputElement>(null);
-
-  const schema = yup.object().shape({
-    name: yup
-      .string()
-      .required('Name is required!')
-      .matches(/^[A-Z].*/, 'First letter must be uppercase!'),
-    age: yup
-      .number()
-      .required('Age is required!')
-      .min(1, 'No negative values!'),
-    email: yup
-      .string()
-      .required('Email is required!')
-      .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g, 'Not valid Email!'),
-    password: yup
-      .string()
-      .required('Password is required!')
-      .matches(/\d/, 'Password must contain at least 1 digit!')
-      .matches(/[A-Z]/, 'Password must contain at least 1 uppercase letter!')
-      .matches(/[a-z]/, 'Password must contain at least 1 lowercase letter!')
-      .matches(
-        /[-=+!@"№;:?#$%_()><,.|{}'`~/\\^&[*\]]/,
-        'Password must contain at least 1 special character!'
-      )
-      .min(8),
-    confirmPassword: yup
-      .string()
-      .required('Confirm password is required!')
-      .test(
-        'is confirm password match',
-        'Confirm password should match with password!',
-        (value) => value === passwordInputRef.current?.value
-      ),
-    accept: yup
-      .boolean()
-      .test('isTrue', 'Not confirmed', (value) => value === true),
-    image: yup
-      .mixed()
-      .test(
-        'isValidExtension',
-        'Not valid image extension! Only .png and .jpeg!',
-        (value) => {
-          if (value instanceof HTMLInputElement)
-            return isValidFileExtension(value.value);
-        }
-      )
-      .test('isValidSize', 'Max allowed size is 100KB!', (value) => {
-        if (value instanceof HTMLInputElement && value.files) {
-          return value.files[0].size <= MAX_FILE_SIZE;
-        }
-      }),
-  });
 
   const dispatch = useAppDispatch();
   const { setData, setImage } = uncontrolledFormSlice.actions;
@@ -110,20 +52,23 @@ const UncontrolledForm: FC = () => {
       country: countryInput,
     };
     try {
-      await schema.validate({ ...formData, image: imageInput });
+      await schema.validate(
+        { ...formData, image: imageInput },
+        { abortEarly: false }
+      );
+
       if (imageInputRef.current?.files) {
         const reader = new FileReader();
 
         const imageFile = imageInputRef.current?.files[0];
 
         reader.readAsDataURL(imageFile);
-        reader.onloadend = function () {
-          dispatch(setImage(reader.result as string));
-        };
+
+        reader.onloadend = () => dispatch(setImage(reader.result as string));
       }
       dispatch(setData(formData));
     } catch (err) {
-      if (err instanceof yup.ValidationError) console.log(err.message);
+      if (err instanceof yup.ValidationError) console.log(err.inner);
     }
   };
   return (

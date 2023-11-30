@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import { MyInputProps } from './MyInput.type';
 
 const MyInput: FC<MyInputProps> = ({ type, id, title, refObject }) => {

@@ -1,4 +1,5 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+
 import { FormState, initialState } from './slice.type';
 
 export const reactHookFormSlice = createSlice({
