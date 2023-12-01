@@ -2,7 +2,7 @@ import { Provider } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
 import { setupStore } from './store/store';
-import { ROUTES } from './utils/constants/routes';
+import { ROUTES } from './utils/constants/constants';
 
 import MainPage from './Components/Pages/MainPage';
 import ReactHookFormPage from './Components/Pages/ReactHookFormPage';

@@ -1,20 +1,21 @@
 import * as yup from 'yup';
 
-const MAX_FILE_SIZE = 102400;
+import { MAX_FILE_SIZE } from '../constants/constants';
+import { isValidFileExtension } from '../handlers/handlers';
 
-const VALID_FILE_EXTENSIONS = ['png', 'jpg'];
-
-const isValidFileExtension = (fileName: string) => {
-  const extension: string = fileName.split('.').reverse()[0];
-  return VALID_FILE_EXTENSIONS.includes(extension);
-};
+export type FormData = yup.InferType<typeof schema>;
 
 export const schema = yup.object().shape({
   name: yup
     .string()
     .required('Name is required!')
     .matches(/^[A-Z].*/, 'First letter must be uppercase!'),
-  age: yup.number().required('Age is required!').min(1, 'No negative values!'),
+  age: yup
+    .string()
+    .required('Age is required!')
+    .test('isNegative', 'No negative values!', (value) => {
+      if (Number(value) > 0) return true;
+    }),
   email: yup
     .string()
     .required('Email is required!')
@@ -47,15 +48,16 @@ export const schema = yup.object().shape({
       'isValidExtension',
       'Not valid image extension! Only .png and .jpeg!',
       (value) => {
-        if (value instanceof HTMLInputElement)
-          return isValidFileExtension(value.value);
+        if (value instanceof FileList && value[0] !== undefined) {
+          return isValidFileExtension(value[0].type);
+        }
       }
     )
     .test('isValidSize', 'Max allowed size is 100KB!', (value) => {
-      if (value instanceof HTMLInputElement && value.files) {
-        if (value.files[0] !== undefined) {
-          return value.files[0].size <= MAX_FILE_SIZE;
-        }
+      if (value instanceof FileList && value[0] !== undefined) {
+        return value[0].size <= MAX_FILE_SIZE;
       }
     }),
+  country: yup.string().required(),
+  gender: yup.string().required(),
 });

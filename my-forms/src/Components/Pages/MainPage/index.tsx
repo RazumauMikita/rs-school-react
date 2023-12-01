@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { ROUTES } from '../../../utils/constants/routes';
+import { ROUTES } from '../../../utils/constants/constants';
 import {
   selectUncontrolledForm,
   selectReactHookForm,

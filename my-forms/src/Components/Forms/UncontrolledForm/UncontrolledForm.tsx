@@ -2,18 +2,21 @@ import { FC, SyntheticEvent, useRef } from 'react';
 import * as yup from 'yup';
 
 import styles from './UncontrolledForm.module.css';
-import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import { useAppDispatch } from '../../../hooks/hooks';
 import { uncontrolledFormSlice } from '../../../store/reducers/uncontrolledFormSlice';
-import { selectUncontrolledForm } from '../../../store/reducers/selector';
 import { genderList } from '../../../utils/data/genderList';
 import { countryList } from '../../../utils/data/countryList';
-import { FormState } from '../../../store/reducers/slice.type';
 import { schema } from '../../../utils/validation/validationSchema';
 
-import MyInput from '../../MyInput/MyInput';
+import MyInput from '../../MyInputs/MyInput';
 import MySelect from '../../MySelect/MySelect';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../../utils/constants/constants';
+import { FormData } from '../../../utils/validation/validationSchema';
 
 const UncontrolledForm: FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const nameInputRef = useRef<HTMLInputElement>(null);
   const ageInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
@@ -24,9 +27,7 @@ const UncontrolledForm: FC = () => {
   const countryInputRef = useRef<HTMLSelectElement>(null);
   const acceptInputRef = useRef<HTMLInputElement>(null);
 
-  const dispatch = useAppDispatch();
   const { setData, setImage } = uncontrolledFormSlice.actions;
-  const {} = useAppSelector(selectUncontrolledForm);
 
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
@@ -36,11 +37,11 @@ const UncontrolledForm: FC = () => {
     const passwordString = passwordInputRef.current?.value || '';
     const confirmPasswordString = confirmPasswordInputRef.current?.value || '';
     const acceptInput = acceptInputRef.current?.checked || false;
-    const imageInput = imageInputRef.current;
+    const imageInput = imageInputRef.current?.files;
     const genderInput = genderInputRef.current?.value || '';
     const countryInput = countryInputRef.current?.value || '';
 
-    const formData: FormState = {
+    const formData: FormData = {
       name: nameString,
       age: ageNumber,
       email: emailString,
@@ -59,14 +60,12 @@ const UncontrolledForm: FC = () => {
 
       if (imageInputRef.current?.files) {
         const reader = new FileReader();
-
-        const imageFile = imageInputRef.current?.files[0];
-
-        reader.readAsDataURL(imageFile);
-
+        const imageFiles = imageInputRef.current?.files[0];
+        reader.readAsDataURL(imageFiles);
         reader.onloadend = () => dispatch(setImage(reader.result as string));
       }
       dispatch(setData(formData));
+      navigate(ROUTES.MAIN_PAGE);
     } catch (err) {
       if (err instanceof yup.ValidationError) console.log(err.inner);
     }

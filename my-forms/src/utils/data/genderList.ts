@@ -1,1 +1,16 @@
-export const genderList = ['Male', 'Female'];
+export const genderList = [
+  'Male',
+  'Female',
+  'Aporagender',
+  'Demigender',
+  'Demiboy',
+  'Nonbinary',
+  'Bigender',
+  'Androgynous',
+  'Demigirl',
+  'Gay',
+  'Butch',
+  'Trans',
+  'Agender',
+  'Cisgender',
+];

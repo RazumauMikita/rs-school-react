@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { FormState, initialState } from './slice.type';
+import { initialState } from './slice.type';
+import { FormData } from '../../utils/validation/validationSchema';
 
 export const uncontrolledFormSlice = createSlice({
   name: 'uncontrolledForm',
@@ -9,7 +10,7 @@ export const uncontrolledFormSlice = createSlice({
     setImage(state, action: PayloadAction<string>) {
       state.image = action.payload;
     },
-    setData(state, action: PayloadAction<FormState>) {
+    setData(state, action: PayloadAction<FormData>) {
       Object.assign(state, action.payload);
     },
   },

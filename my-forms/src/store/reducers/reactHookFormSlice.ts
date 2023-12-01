@@ -1,13 +1,17 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { FormState, initialState } from './slice.type';
+import { initialState } from './slice.type';
+import { FormData } from '../../utils/validation/validationSchema';
 
 export const reactHookFormSlice = createSlice({
   name: 'form',
   initialState,
   reducers: {
-    setDataToStore(state, action: PayloadAction<FormState>) {
-      state = action.payload;
+    setImage(state, action: PayloadAction<string>) {
+      state.image = action.payload;
+    },
+    setData(state, action: PayloadAction<FormData>) {
+      Object.assign(state, action.payload);
     },
   },
 });

@@ -47,7 +47,7 @@ const DataTile: FC<DataTileProps> = ({ selectedForm, title, route }) => {
           Confirm password: <strong>{confirmPassword}</strong>
         </p>
         <p>
-          Accept: <strong>{accept}</strong>
+          Accept: <strong>{accept.toString()}</strong>
         </p>
 
         <img src={image} alt="image" className={styles.image} />
