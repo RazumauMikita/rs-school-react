@@ -4,11 +4,15 @@ import { ROUTES } from '../../../utils/constants/constants';
 import {
   selectUncontrolledForm,
   selectReactHookForm,
+  selectData,
 } from '../../../store/reducers/selector';
 import DataTile from '../../DataTile/DataTile';
 import styles from './MainPage.module.css';
+import { useAppSelector } from '../../../hooks/hooks';
 
 const MainPage: FC = () => {
+  const { successfulSubmitRHForm, successfulSubmitUncontrolledForm } =
+    useAppSelector(selectData);
   return (
     <>
       <h1>MainPage</h1>
@@ -17,11 +21,13 @@ const MainPage: FC = () => {
           selectedForm={selectUncontrolledForm}
           title="Uncontrolled form tile"
           route={ROUTES.UNCONTROLLED_FORM_PAGE}
+          isSubmit={successfulSubmitUncontrolledForm}
         />
         <DataTile
           selectedForm={selectReactHookForm}
           title="React hook form tile"
           route={ROUTES.REACT_HOOK_FORM_PAGE}
+          isSubmit={successfulSubmitRHForm}
         />
       </section>
     </>

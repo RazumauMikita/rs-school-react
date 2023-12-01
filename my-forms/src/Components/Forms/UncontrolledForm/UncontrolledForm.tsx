@@ -3,13 +3,14 @@ import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './UncontrolledForm.module.css';
-import { useAppDispatch } from '../../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { uncontrolledFormSlice } from '../../../store/reducers/uncontrolledFormSlice';
 import { genderList } from '../../../utils/data/genderList';
-import { countryList } from '../../../utils/data/countryList';
 import { schema } from '../../../utils/validation/validationSchema';
 import { ROUTES } from '../../../utils/constants/constants';
 import { FormData } from '../../../utils/validation/validationSchema';
+import { selectData } from '../../../store/reducers/selector';
+import { dataSlice } from '../../../store/reducers/dataSlice';
 
 import MyInput from '../../MyInputs/MyInput';
 import MySelect from '../../MySelect/MySelect';
@@ -28,8 +29,10 @@ const UncontrolledForm: FC = () => {
   const acceptInputRef = useRef<HTMLInputElement>(null);
 
   const { setData, setImage } = uncontrolledFormSlice.actions;
+  const { countryList } = useAppSelector(selectData);
+  const { setSuccessSubmitUnCtForm } = dataSlice.actions;
 
-  const initialErrorState = {
+  const errorsInitialState = {
     name: '',
     email: '',
     age: '',
@@ -38,7 +41,7 @@ const UncontrolledForm: FC = () => {
     accept: '',
     image: '',
   };
-  const [errorsStore, setErrors] = useState(initialErrorState);
+  const [errorsStore, setErrors] = useState(errorsInitialState);
 
   const setErrorToField = (errors: yup.ValidationError) => {
     errors.inner.forEach((e) => {
@@ -82,10 +85,14 @@ const UncontrolledForm: FC = () => {
         reader.onloadend = () => dispatch(setImage(reader.result as string));
       }
       dispatch(setData(formData));
+      dispatch(setSuccessSubmitUnCtForm(true));
+      setTimeout(() => {
+        dispatch(setSuccessSubmitUnCtForm(false));
+      }, 3000);
       navigate(ROUTES.MAIN_PAGE);
     } catch (err) {
       if (err instanceof yup.ValidationError) {
-        setErrors(initialErrorState);
+        setErrors(errorsInitialState);
         setErrorToField(err);
       }
     }

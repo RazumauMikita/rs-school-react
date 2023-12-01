@@ -1,11 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { initialStateData } from './slice.type';
+import { initAppDataState } from './slice.type';
 
 export const dataSlice = createSlice({
   name: 'data',
-  initialState: initialStateData,
-  reducers: {},
+  initialState: initAppDataState,
+  reducers: {
+    setSuccessSubmitRHForm: (state, payload: PayloadAction<boolean>) => {
+      state.successfulSubmitRHForm = payload.payload;
+    },
+    setSuccessSubmitUnCtForm: (state, payload: PayloadAction<boolean>) => {
+      state.successfulSubmitUncontrolledForm = payload.payload;
+    },
+  },
 });
 
 export default dataSlice.reducer;
+9999;

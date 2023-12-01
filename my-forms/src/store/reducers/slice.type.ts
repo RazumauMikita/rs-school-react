@@ -22,5 +22,13 @@ export const initialState: FormState = {
   country: '',
   image: '',
 };
-
-export const initialStateData: string[] = countryList;
+export interface AppDataState {
+  countryList: string[];
+  successfulSubmitRHForm: boolean;
+  successfulSubmitUncontrolledForm: boolean;
+}
+export const initAppDataState: AppDataState = {
+  countryList: countryList,
+  successfulSubmitRHForm: false,
+  successfulSubmitUncontrolledForm: false,
+};

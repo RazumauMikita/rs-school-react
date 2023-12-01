@@ -5,4 +5,5 @@ export interface DataTileProps {
   title: string;
   route: string;
   selectedForm: (state: RootState) => FormState;
+  isSubmit?: boolean;
 }

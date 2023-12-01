@@ -5,7 +5,12 @@ import styles from './DataTile.module.css';
 import { DataTileProps } from './DataTile.type';
 import { Link } from 'react-router-dom';
 
-const DataTile: FC<DataTileProps> = ({ selectedForm, title, route }) => {
+const DataTile: FC<DataTileProps> = ({
+  selectedForm,
+  title,
+  route,
+  isSubmit,
+}) => {
   const {
     name,
     age,
@@ -19,7 +24,11 @@ const DataTile: FC<DataTileProps> = ({ selectedForm, title, route }) => {
   } = useAppSelector(selectedForm);
 
   return (
-    <fieldset className={styles.mainContainer}>
+    <fieldset
+      className={`${styles.mainContainer} ${
+        isSubmit ? `${styles.active}` : ''
+      }`}
+    >
       <legend>{title}</legend>
       <Link to={route}>
         <button>To form</button>

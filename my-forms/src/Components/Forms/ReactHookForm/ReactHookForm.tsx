@@ -3,14 +3,15 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch } from '../../../hooks/hooks';
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { reactHookFormSlice } from '../../../store/reducers/reactHookFormSlice';
 import { schema } from '../../../utils/validation/validationSchema';
 import { genderList } from '../../../utils/data/genderList';
-import { countryList } from '../../../utils/data/countryList';
 import { ROUTES } from '../../../utils/constants/constants';
 import { FormData } from '../../../utils/validation/validationSchema';
 import styles from './ReactHookForm.module.css';
+import { selectData } from '../../../store/reducers/selector';
+import { dataSlice } from '../../../store/reducers/dataSlice';
 
 //import MyRHFInput from '../../MyInputs/MyRHFInput/MyRHFInput';
 
@@ -18,6 +19,8 @@ const ReactHookForm: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { setImage, setData } = reactHookFormSlice.actions;
+  const { setSuccessSubmitRHForm } = dataSlice.actions;
+  const { countryList } = useAppSelector(selectData);
 
   const {
     register,
@@ -33,7 +36,10 @@ const ReactHookForm: FC = () => {
 
     reader.readAsDataURL(imageFiles[0]);
     reader.onloadend = () => dispatch(setImage(reader.result as string));
-
+    dispatch(setSuccessSubmitRHForm(true));
+    setTimeout(() => {
+      dispatch(setSuccessSubmitRHForm(false));
+    }, 3000);
     navigate(ROUTES.MAIN_PAGE);
   });
 
