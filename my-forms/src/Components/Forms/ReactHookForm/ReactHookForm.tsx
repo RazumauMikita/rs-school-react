@@ -13,7 +13,8 @@ import styles from './ReactHookForm.module.css';
 import { selectData } from '../../../store/reducers/selector';
 import { dataSlice } from '../../../store/reducers/dataSlice';
 
-//import MyRHFInput from '../../MyInputs/MyRHFInput/MyRHFInput';
+import MyRHFInput from '../../MyInputs/MyRHFInput/MyRHFInput';
+import MyRHFSelect from '../../MySelect/MyRHFSelect/MyRHFSelect';
 
 const ReactHookForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -46,103 +47,76 @@ const ReactHookForm: FC = () => {
   return (
     <>
       <form onSubmit={onSubmit} className={styles.formContainer}>
-        <label htmlFor="name" className={styles.inputLabel}>
-          <div className={styles.fieldContainer}>
-            <span className={styles.fieldTitle}>Name:</span>
-            <input type="text" {...register('name')} id="name" />
-          </div>
-          <span className={styles.errorMessage}>{errors['name']?.message}</span>
-        </label>
+        <MyRHFInput
+          name={'name'}
+          type={'text'}
+          register={register}
+          errors={errors}
+          title={'Name'}
+        />
+        <MyRHFInput
+          name={'age'}
+          type={'number'}
+          register={register}
+          errors={errors}
+          title={'Age'}
+        />
 
-        <label htmlFor="age">
-          <div className={styles.fieldContainer}>
-            <span className={styles.fieldTitle}>Age:</span>
-            <input type="number" {...register('age')} id="age" />
-          </div>
-          <span className={styles.errorMessage}>{errors['age']?.message}</span>
-        </label>
+        <MyRHFInput
+          name={'email'}
+          type={'email'}
+          register={register}
+          errors={errors}
+          title="Email"
+        />
 
-        <label htmlFor="email">
-          <div className={styles.fieldContainer}>
-            <span className={styles.fieldTitle}>Email:</span>
-            <input type="email" {...register('email')} id="email" />
-          </div>
-          <span className={styles.errorMessage}>
-            {errors['email']?.message}
-          </span>
-        </label>
+        <MyRHFInput
+          name={'password'}
+          type={'password'}
+          register={register}
+          errors={errors}
+          title="Password"
+        />
 
-        <label htmlFor="password">
-          <div className={styles.fieldContainer}>
-            <span className={styles.fieldTitle}>Password:</span>
-            <input type="password" {...register('password')} id="password" />
-          </div>
-          <span className={styles.errorMessage}>
-            {errors['password']?.message}
-          </span>
-        </label>
+        <MyRHFInput
+          name={'confirmPassword'}
+          type={'password'}
+          register={register}
+          errors={errors}
+          title="Confirm password"
+        />
 
-        <label htmlFor="confirmPassword">
-          <div className={styles.fieldContainer}>
-            <span className={styles.fieldTitle}>Confirm password:</span>
-            <input
-              type="password"
-              {...register('confirmPassword')}
-              id="confirmPassword"
-            />
-          </div>
-          <span className={styles.errorMessage}>
-            {errors['confirmPassword']?.message}
-          </span>
-        </label>
+        <MyRHFInput
+          name={'image'}
+          type={'file'}
+          register={register}
+          errors={errors}
+          title="Image"
+        />
 
-        <label htmlFor="image">
-          <div className={styles.fieldContainer}>
-            <span className={styles.fieldTitle}>Image:</span>
-            <input type="file" {...register('image')} id="image" />
-          </div>
-          <span className={styles.errorMessage}>
-            {errors['image']?.message}
-          </span>
-        </label>
+        <MyRHFSelect
+          name={'gender'}
+          options={genderList}
+          title={'Gender'}
+          errors={errors}
+          register={register}
+        />
 
-        <label htmlFor="gender">
-          <div className={styles.fieldContainer}>
-            <span className={styles.fieldTitle}>Gender:</span>
-            <select {...register('gender')} id="gender">
-              {genderList.map((gender, index) => {
-                return <option key={index}>{gender}</option>;
-              })}
-            </select>
-          </div>
-          <span className={styles.errorMessage}>
-            {errors['gender']?.message}
-          </span>
-        </label>
+        <MyRHFSelect
+          name={'country'}
+          options={countryList}
+          title={'Country'}
+          errors={errors}
+          register={register}
+        />
 
-        <label htmlFor="country">
-          <div className={styles.fieldContainer}>
-            <span className={styles.fieldTitle}>Country:</span>
-            <select {...register('country')} id="country">
-              {countryList.map((country, index) => {
-                return <option key={index}>{country}</option>;
-              })}
-            </select>
-          </div>
-          <span className={styles.errorMessage}>
-            {errors['gender']?.message}
-          </span>
-        </label>
-
-        <label htmlFor="accept">
-          <div className={styles.fieldContainer}>
-            <span className={styles.fieldTitle}>Accept:</span>
-            <input type="checkbox" {...register('accept')} id="accept" />
-          </div>
-          <span className={styles.errorMessage}>
-            {errors['accept']?.message}
-          </span>
-        </label>
+        <MyRHFInput
+          name={'accept'}
+          type={'checkbox'}
+          register={register}
+          errors={errors}
+          title="Accept"
+        />
 
         <button type="submit" disabled={!isValid}>
           Submit

@@ -1,18 +1,25 @@
 import { FC } from 'react';
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
-interface MyRHFInputProps {
-  name: string;
-  type: string;
-  register: UseFormRegister<FormData>;
-  errors: FieldErrors<FormData>;
-}
+import { FieldErrors } from 'react-hook-form';
 
-const MyRHFInput: FC<MyRHFInputProps> = ({ name, type, register }) => {
+import styles from './MtRHFInput.module.css';
+import { MyRHFInputProps } from './MyRHFInput.type';
+
+const MyRHFInput: FC<MyRHFInputProps> = ({
+  name,
+  type,
+  register,
+  errors,
+  title,
+}) => {
+  const keyOfError = name as string as keyof FieldErrors<FormData>;
+
   return (
-    <label htmlFor={name}>
-      <input type={type} {...register} id={name} />
-      <br />
-      <span>{}</span>
+    <label htmlFor={name} className={styles.inputLabel}>
+      <div className={styles.fieldContainer}>
+        <span className={styles.fieldTitle}>{title}:</span>
+        <input type={type} {...register(name)} id={name} />
+      </div>
+      <span className={styles.errorMessage}>{errors[keyOfError]?.message}</span>
     </label>
   );
 };
