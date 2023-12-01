@@ -3,4 +3,5 @@ export interface MyInputProps {
   id: string;
   title: string;
   refObject: React.LegacyRef<HTMLInputElement>;
+  error?: string;
 }

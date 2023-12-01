@@ -1,12 +1,14 @@
 import { FC } from 'react';
 
 import { MySelectProps } from './MySelect.type';
+import styles from './MySelect.module.css';
 
 const MtSelect: FC<MySelectProps> = ({ id, title, refObject, options }) => {
   return (
-    <>
-      <label htmlFor={id}>
-        {title}
+    <label className={styles.inputLabel} htmlFor={id}>
+      <div className={styles.fieldContainer}>
+        <span className={styles.fieldTitle}>{title}</span>
+
         <select ref={refObject} id={id} autoComplete="on">
           {options.map((option, index) => {
             return (
@@ -16,8 +18,9 @@ const MtSelect: FC<MySelectProps> = ({ id, title, refObject, options }) => {
             );
           })}
         </select>
-      </label>
-    </>
+      </div>
+      <span className={styles.errorMessage}></span>
+    </label>
   );
 };
 

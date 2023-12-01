@@ -44,6 +44,7 @@ export const schema = yup.object().shape({
     .test('isTrue', 'Not confirmed', (value) => value === true),
   image: yup
     .mixed()
+    .required()
     .test(
       'isValidExtension',
       'Not valid image extension! Only .png and .jpeg!',

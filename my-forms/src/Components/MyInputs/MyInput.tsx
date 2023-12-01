@@ -1,15 +1,17 @@
 import { FC } from 'react';
 
 import { MyInputProps } from './MyInput.type';
+import styles from './MyInput.module.css';
 
-const MyInput: FC<MyInputProps> = ({ type, id, title, refObject }) => {
+const MyInput: FC<MyInputProps> = ({ type, id, title, refObject, error }) => {
   return (
-    <div>
-      <label htmlFor={id}>
-        {title}
+    <label htmlFor={id} className={styles.inputLabel}>
+      <div className={styles.fieldContainer}>
+        <span className={styles.fieldTitle}>{title}</span>
         <input type={type} ref={refObject} id={id} />
-      </label>
-    </div>
+      </div>
+      <span className={styles.errorMessage}>{error}</span>
+    </label>
   );
 };
 

@@ -1,5 +1,6 @@
-import { FC, SyntheticEvent, useRef } from 'react';
+import { FC, SyntheticEvent, useRef, useState } from 'react';
 import * as yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './UncontrolledForm.module.css';
 import { useAppDispatch } from '../../../hooks/hooks';
@@ -7,12 +8,11 @@ import { uncontrolledFormSlice } from '../../../store/reducers/uncontrolledFormS
 import { genderList } from '../../../utils/data/genderList';
 import { countryList } from '../../../utils/data/countryList';
 import { schema } from '../../../utils/validation/validationSchema';
+import { ROUTES } from '../../../utils/constants/constants';
+import { FormData } from '../../../utils/validation/validationSchema';
 
 import MyInput from '../../MyInputs/MyInput';
 import MySelect from '../../MySelect/MySelect';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../../utils/constants/constants';
-import { FormData } from '../../../utils/validation/validationSchema';
 
 const UncontrolledForm: FC = () => {
   const navigate = useNavigate();
@@ -29,6 +29,26 @@ const UncontrolledForm: FC = () => {
 
   const { setData, setImage } = uncontrolledFormSlice.actions;
 
+  const initialErrorState = {
+    name: '',
+    email: '',
+    age: '',
+    password: '',
+    confirmPassword: '',
+    accept: '',
+    image: '',
+  };
+  const [errorsStore, setErrors] = useState(initialErrorState);
+
+  const setErrorToField = (errors: yup.ValidationError) => {
+    errors.inner.forEach((e) => {
+      const path = e.path || '';
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [path]: e.message,
+      }));
+    });
+  };
   const handleSubmit = async (event: SyntheticEvent) => {
     event.preventDefault();
     const nameString = nameInputRef.current?.value || '';
@@ -37,7 +57,7 @@ const UncontrolledForm: FC = () => {
     const passwordString = passwordInputRef.current?.value || '';
     const confirmPasswordString = confirmPasswordInputRef.current?.value || '';
     const acceptInput = acceptInputRef.current?.checked || false;
-    const imageInput = imageInputRef.current?.files;
+    const imageInput = imageInputRef.current?.files || '';
     const genderInput = genderInputRef.current?.value || '';
     const countryInput = countryInputRef.current?.value || '';
 
@@ -48,15 +68,12 @@ const UncontrolledForm: FC = () => {
       password: passwordString,
       confirmPassword: confirmPasswordString,
       accept: acceptInput,
-      image: '',
+      image: imageInput,
       gender: genderInput,
       country: countryInput,
     };
     try {
-      await schema.validate(
-        { ...formData, image: imageInput },
-        { abortEarly: false }
-      );
+      await schema.validate(formData, { abortEarly: false });
 
       if (imageInputRef.current?.files) {
         const reader = new FileReader();
@@ -67,7 +84,10 @@ const UncontrolledForm: FC = () => {
       dispatch(setData(formData));
       navigate(ROUTES.MAIN_PAGE);
     } catch (err) {
-      if (err instanceof yup.ValidationError) console.log(err.inner);
+      if (err instanceof yup.ValidationError) {
+        setErrors(initialErrorState);
+        setErrorToField(err);
+      }
     }
   };
   return (
@@ -78,6 +98,7 @@ const UncontrolledForm: FC = () => {
           id={'inputName'}
           title={'Name:'}
           refObject={nameInputRef}
+          error={errorsStore.name}
         />
 
         <MyInput
@@ -85,6 +106,7 @@ const UncontrolledForm: FC = () => {
           id={'inputAge'}
           title={'Age:'}
           refObject={ageInputRef}
+          error={errorsStore.age}
         />
 
         <MyInput
@@ -92,6 +114,7 @@ const UncontrolledForm: FC = () => {
           id={'inputEmail'}
           title={'Email:'}
           refObject={emailInputRef}
+          error={errorsStore.email}
         />
 
         <MyInput
@@ -99,6 +122,7 @@ const UncontrolledForm: FC = () => {
           id={'inputPassword'}
           title={'Password:'}
           refObject={passwordInputRef}
+          error={errorsStore.password}
         />
 
         <MyInput
@@ -106,12 +130,14 @@ const UncontrolledForm: FC = () => {
           id={'inputConfirmPassword'}
           title={'Confirm password:'}
           refObject={confirmPasswordInputRef}
+          error={errorsStore.confirmPassword}
         />
         <MyInput
           type={'file'}
           id={'inputImage'}
           title={'Image:'}
           refObject={imageInputRef}
+          error={errorsStore.image}
         />
 
         <MySelect
@@ -133,6 +159,7 @@ const UncontrolledForm: FC = () => {
           id={'inputAccept'}
           title={'Accept:'}
           refObject={acceptInputRef}
+          error={errorsStore.accept}
         />
 
         <button type="submit">Submit</button>
