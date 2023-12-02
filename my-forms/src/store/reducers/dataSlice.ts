@@ -16,4 +16,3 @@ export const dataSlice = createSlice({
 });
 
 export default dataSlice.reducer;
-9999;

@@ -1,22 +1,19 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import reactHookFormReducer from './reducers/reactHookFormSlice';
-import uncontrolledFormReducer from './reducers/uncontrolledFormSlice';
+import reactHookFormSLice from './reducers/reactHookFormSlice';
+import uncontrolledFormSlice from './reducers/uncontrolledFormSlice';
 import dataSlice from './reducers/dataSlice';
 const rootReducer = combineReducers({
-  reactHookFormReducer,
-  uncontrolledFormReducer,
-  dataSlice,
+  reactHookForm: reactHookFormSLice,
+  uncontrolledForm: uncontrolledFormSlice,
+  data: dataSlice,
 });
 
-export const setupStore = () => {
-  return configureStore({
-    reducer: rootReducer,
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware({ serializableCheck: false }),
-  });
-};
-
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({ serializableCheck: false }),
+});
 export type RootState = ReturnType<typeof rootReducer>;
-export type AppStore = ReturnType<typeof setupStore>;
-export type AppDispatch = AppStore['dispatch'];
+export type AppStore = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
