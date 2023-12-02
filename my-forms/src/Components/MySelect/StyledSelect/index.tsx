@@ -1,9 +1,15 @@
 import { FC } from 'react';
 
-import { MySelectProps } from './MySelect.type';
+import { StyledSelectProps } from './MySelect.type';
+
 import styles from './MySelect.module.css';
 
-const MtSelect: FC<MySelectProps> = ({ id, title, refObject, options }) => {
+const StyledSelect: FC<StyledSelectProps> = ({
+  id,
+  title,
+  refObject,
+  options,
+}) => {
   return (
     <label className={styles.inputLabel} htmlFor={id}>
       <div className={styles.fieldContainer}>
@@ -24,4 +30,4 @@ const MtSelect: FC<MySelectProps> = ({ id, title, refObject, options }) => {
   );
 };
 
-export default MtSelect;
+export default StyledSelect;

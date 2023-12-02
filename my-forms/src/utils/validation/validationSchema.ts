@@ -13,7 +13,7 @@ export const schema = yup.object().shape({
   age: yup
     .string()
     .required('Age is required!')
-    .test('isNegative', 'No negative values!', (value) => {
+    .test('isNegative', 'Age must contain a positive value!', (value) => {
       if (Number(value) > 0) return true;
     }),
   email: yup

@@ -1,10 +1,11 @@
 import { FC } from 'react';
 import { FieldErrors } from 'react-hook-form';
 
-import styles from './MyRHFSelect.module.css';
-import { MyRHFSelectProps } from './MyRHFSelect.type';
+import { StyledRHFSelectProps } from './StyledRHFSelect.type';
 
-const MyRHFSelect: FC<MyRHFSelectProps> = ({
+import styles from './StyledRHFSelect.module.css';
+
+const StyledRHFSelect: FC<StyledRHFSelectProps> = ({
   name,
   title,
   errors,
@@ -27,4 +28,4 @@ const MyRHFSelect: FC<MyRHFSelectProps> = ({
   );
 };
 
-export default MyRHFSelect;
+export default StyledRHFSelect;

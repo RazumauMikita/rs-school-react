@@ -1,4 +1,4 @@
-export interface MyInputProps {
+export interface StyledInputProps {
   type: string;
   id: string;
   title: string;

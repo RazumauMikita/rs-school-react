@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { FieldErrors } from 'react-hook-form';
 
-import styles from './MtRHFInput.module.css';
-import { MyRHFInputProps } from './MyRHFInput.type';
+import styles from './StyledRHFInput.module.css';
+import { StyledRHFInputProps } from './StyledRHFInput.type';
 
-const MyRHFInput: FC<MyRHFInputProps> = ({
+const StyledRHFInput: FC<StyledRHFInputProps> = ({
   name,
   type,
   register,
@@ -24,4 +24,4 @@ const MyRHFInput: FC<MyRHFInputProps> = ({
   );
 };
 
-export default MyRHFInput;
+export default StyledRHFInput;

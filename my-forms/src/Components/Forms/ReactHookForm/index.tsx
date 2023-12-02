@@ -3,18 +3,21 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
 import { reactHookFormSlice } from '../../../store/reducers/reactHookFormSlice';
+import { selectData } from '../../../store/reducers/selector';
+import { dataSlice } from '../../../store/reducers/dataSlice';
+
+import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+
 import { schema } from '../../../utils/validation/validationSchema';
 import { genderList } from '../../../utils/data/genderList';
 import { ROUTES } from '../../../utils/constants/constants';
 import { FormData } from '../../../utils/validation/validationSchema';
-import styles from './ReactHookForm.module.css';
-import { selectData } from '../../../store/reducers/selector';
-import { dataSlice } from '../../../store/reducers/dataSlice';
 
-import MyRHFInput from '../../MyInputs/MyRHFInput/MyRHFInput';
-import MyRHFSelect from '../../MySelect/MyRHFSelect/MyRHFSelect';
+import StyledRHFInput from '../../MyInputs/StyledRHFInput';
+import StyledRHFSelect from '../../MySelect/StyledRHFSelect';
+
+import styles from './ReactHookForm.module.css';
 
 const ReactHookForm: FC = () => {
   const dispatch = useAppDispatch();
@@ -47,72 +50,72 @@ const ReactHookForm: FC = () => {
   return (
     <>
       <form onSubmit={onSubmit} className={styles.formContainer}>
-        <MyRHFInput
-          name={'name'}
-          type={'text'}
+        <StyledRHFInput
+          name="name"
+          type="text"
           register={register}
           errors={errors}
-          title={'Name'}
+          title="Name"
         />
-        <MyRHFInput
-          name={'age'}
-          type={'number'}
+        <StyledRHFInput
+          name="age"
+          type="number"
           register={register}
           errors={errors}
-          title={'Age'}
+          title="Age"
         />
 
-        <MyRHFInput
-          name={'email'}
-          type={'email'}
+        <StyledRHFInput
+          name="email"
+          type="email"
           register={register}
           errors={errors}
           title="Email"
         />
 
-        <MyRHFInput
-          name={'password'}
-          type={'password'}
+        <StyledRHFInput
+          name="password"
+          type="password"
           register={register}
           errors={errors}
           title="Password"
         />
 
-        <MyRHFInput
-          name={'confirmPassword'}
-          type={'password'}
+        <StyledRHFInput
+          name="confirmPassword"
+          type="password"
           register={register}
           errors={errors}
           title="Confirm password"
         />
 
-        <MyRHFInput
-          name={'image'}
-          type={'file'}
+        <StyledRHFInput
+          name="image"
+          type="file"
           register={register}
           errors={errors}
           title="Image"
         />
 
-        <MyRHFSelect
-          name={'gender'}
+        <StyledRHFSelect
+          name="gender"
           options={genderList}
-          title={'Gender'}
+          title="Gender"
           errors={errors}
           register={register}
         />
 
-        <MyRHFSelect
-          name={'country'}
+        <StyledRHFSelect
+          name="country"
           options={countryList}
-          title={'Country'}
+          title="Country"
           errors={errors}
           register={register}
         />
 
-        <MyRHFInput
-          name={'accept'}
-          type={'checkbox'}
+        <StyledRHFInput
+          name="accept"
+          type="checkbox"
           register={register}
           errors={errors}
           title="Accept"

@@ -1,9 +1,12 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
+import clsx from 'clsx';
 
 import { useAppSelector } from '../../hooks/hooks';
-import styles from './DataTile.module.css';
+
 import { DataTileProps } from './DataTile.type';
-import { Link } from 'react-router-dom';
+
+import styles from './DataTile.module.css';
 
 const DataTile: FC<DataTileProps> = ({
   selectedForm,
@@ -25,9 +28,7 @@ const DataTile: FC<DataTileProps> = ({
 
   return (
     <fieldset
-      className={`${styles.mainContainer} ${
-        isSubmit ? `${styles.active}` : ''
-      }`}
+      className={clsx(styles.mainContainer, { [styles.active]: isSubmit })}
     >
       <legend>{title}</legend>
       <Link to={route}>

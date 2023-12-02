@@ -1,6 +1,6 @@
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-export interface MyRHFSelectProps {
+export interface StyledRHFInputProps {
   name:
     | 'name'
     | 'age'
@@ -11,8 +11,8 @@ export interface MyRHFSelectProps {
     | 'gender'
     | 'country'
     | 'image';
+  type: string;
   title: string;
-  errors: FieldErrors<FormData>;
   register: UseFormRegister<{
     accept?: boolean | undefined;
     name: string;
@@ -24,5 +24,5 @@ export interface MyRHFSelectProps {
     country: string;
     image: object;
   }>;
-  options: string[];
+  errors: FieldErrors<FormData>;
 }

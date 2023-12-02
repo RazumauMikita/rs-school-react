@@ -2,7 +2,8 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 
 import { ROUTES } from '../../../utils/constants/constants';
-import ReactHookForm from '../../Forms/ReactHookForm/ReactHookForm';
+
+import ReactHookForm from '../../Forms/ReactHookForm';
 
 const ReactHookFormPage: FC = () => {
   return (

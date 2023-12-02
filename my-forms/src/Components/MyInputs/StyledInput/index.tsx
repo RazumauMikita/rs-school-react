@@ -1,9 +1,16 @@
 import { FC } from 'react';
 
-import { MyInputProps } from './MyInput.type';
-import styles from './MyInput.module.css';
+import { StyledInputProps } from './StyledInput.type';
 
-const MyInput: FC<MyInputProps> = ({ type, id, title, refObject, error }) => {
+import styles from './StyledInput.module.css';
+
+const StyledInput: FC<StyledInputProps> = ({
+  type,
+  id,
+  title,
+  refObject,
+  error,
+}) => {
   return (
     <label htmlFor={id} className={styles.inputLabel}>
       <div className={styles.fieldContainer}>
@@ -15,4 +22,4 @@ const MyInput: FC<MyInputProps> = ({ type, id, title, refObject, error }) => {
   );
 };
 
-export default MyInput;
+export default StyledInput;

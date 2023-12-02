@@ -1,14 +1,18 @@
 import { FC } from 'react';
 
-import { ROUTES } from '../../../utils/constants/constants';
 import {
   selectUncontrolledForm,
   selectReactHookForm,
   selectData,
 } from '../../../store/reducers/selector';
-import DataTile from '../../DataTile/DataTile';
-import styles from './MainPage.module.css';
+
 import { useAppSelector } from '../../../hooks/hooks';
+
+import { ROUTES } from '../../../utils/constants/constants';
+
+import DataTile from '../../DataTile';
+
+import styles from './MainPage.module.css';
 
 const MainPage: FC = () => {
   const { successfulSubmitRHForm, successfulSubmitUncontrolledForm } =
