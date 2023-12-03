@@ -44,7 +44,7 @@ export const schema = yup.object().shape({
     .test('isTrue', 'Not confirmed', (value) => value === true),
   image: yup
     .mixed()
-    .required()
+    .required('Image is required!')
     .test(
       'isValidExtension',
       'Not valid image extension! Only .png and .jpeg!',
@@ -59,6 +59,6 @@ export const schema = yup.object().shape({
         return value[0].size <= MAX_FILE_SIZE;
       }
     }),
-  country: yup.string().required(),
+  country: yup.string().required('Country is required!'),
   gender: yup.string().required(),
 });

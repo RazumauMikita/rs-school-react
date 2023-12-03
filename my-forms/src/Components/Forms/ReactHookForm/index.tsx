@@ -37,9 +37,9 @@ const ReactHookForm: FC = () => {
 
     const imageFiles = data.image as FileList;
     const reader = new FileReader();
-
     reader.readAsDataURL(imageFiles[0]);
     reader.onloadend = () => dispatch(setImage(reader.result as string));
+
     dispatch(setSuccessSubmitRHForm(true));
     setTimeout(() => {
       dispatch(setSuccessSubmitRHForm(false));

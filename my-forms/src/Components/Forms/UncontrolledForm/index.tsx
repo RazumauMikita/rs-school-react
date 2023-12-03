@@ -2,11 +2,10 @@ import { FC, SyntheticEvent, useRef, useState } from 'react';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 
-import { selectData } from '../../../store/reducers/selector';
 import { dataSlice } from '../../../store/reducers/dataSlice';
 import { uncontrolledFormSlice } from '../../../store/reducers/uncontrolledFormSlice';
 
-import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import { useAppDispatch } from '../../../hooks/hooks';
 
 import { genderList } from '../../../utils/data/genderList';
 import { schema } from '../../../utils/validation/validationSchema';
@@ -17,6 +16,7 @@ import StyledInput from '../../MyInputs/StyledInput';
 import StyledSelect from '../../MySelect/StyledSelect';
 
 import styles from './UncontrolledForm.module.css';
+import AutocompleteInput from '../../MyInputs/AutocompleteInput';
 
 const UncontrolledForm: FC = () => {
   const navigate = useNavigate();
@@ -28,11 +28,10 @@ const UncontrolledForm: FC = () => {
   const confirmPasswordInputRef = useRef<HTMLInputElement>(null);
   const imageInputRef = useRef<HTMLInputElement>(null);
   const genderInputRef = useRef<HTMLSelectElement>(null);
-  const countryInputRef = useRef<HTMLSelectElement>(null);
+  const countryInputRef = useRef<HTMLInputElement>(null);
   const acceptInputRef = useRef<HTMLInputElement>(null);
 
   const { setData, setImage } = uncontrolledFormSlice.actions;
-  const { countryList } = useAppSelector(selectData);
   const { setSuccessSubmitUnCtForm } = dataSlice.actions;
 
   const errorsInitialState = {
@@ -43,6 +42,7 @@ const UncontrolledForm: FC = () => {
     confirmPassword: '',
     accept: '',
     image: '',
+    country: '',
   };
   const [errorsStore, setErrors] = useState(errorsInitialState);
 
@@ -150,11 +150,12 @@ const UncontrolledForm: FC = () => {
           options={genderList}
         />
 
-        <StyledSelect
+        <AutocompleteInput
           id="inputCountry"
           title="Country:"
           refObject={countryInputRef}
-          options={countryList}
+          type="text"
+          error={errorsStore.country}
         />
 
         <StyledInput
