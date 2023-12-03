@@ -1,20 +1,22 @@
 import { ChangeEvent, FC, useState } from 'react';
+import { FieldErrors } from 'react-hook-form';
 
 import { selectData } from '../../../store/reducers/selector';
 
-import { StyledInputProps } from '../StyledInput/StyledInput.type';
-
 import { useAppSelector } from '../../../hooks/hooks';
 
-import styles from './AutocompleteInput.module.css';
+import { StyledRHFInputProps } from '../StyledRHFInput/StyledRHFInput.type';
 
-const AutocompleteInput: FC<StyledInputProps> = ({
-  id,
-  type,
-  refObject,
-  error,
+import styles from './AutocompleteRHFInput.module.css';
+
+const AutocompleteRHFInput: FC<StyledRHFInputProps> = ({
+  name,
+  errors,
+  register,
   title,
+  type,
 }) => {
+  const keyOfError = name as string as keyof FieldErrors<FormData>;
   const { countryList } = useAppSelector(selectData);
   const [inputValue, setInputValue] = useState('');
   const [isShow, setIsShow] = useState(false);
@@ -35,7 +37,6 @@ const AutocompleteInput: FC<StyledInputProps> = ({
         (suggestion) =>
           suggestion.toLowerCase().indexOf(input.toLowerCase()) > -1
       );
-
       setFiltered(filteredSuggestions);
       setIsShow(true);
       setInputValue(input);
@@ -68,24 +69,24 @@ const AutocompleteInput: FC<StyledInputProps> = ({
   };
 
   return (
-    <label htmlFor={id} className={styles.inputLabel}>
+    <label htmlFor={name} className={styles.inputLabel}>
       <div className={styles.fieldContainer}>
         <span className={styles.fieldTitle}>{title}</span>
         <div>
           <input
+            {...register(name)}
             onChange={onChangeHandler}
             type={type}
-            ref={refObject}
-            id={id}
+            id={name}
             value={inputValue}
           />
           {renderSuggestions()}
         </div>
       </div>
 
-      <span className={styles.errorMessage}>{error}</span>
+      <span className={styles.errorMessage}>{errors[keyOfError]?.message}</span>
     </label>
   );
 };
 
-export default AutocompleteInput;
+export default AutocompleteRHFInput;

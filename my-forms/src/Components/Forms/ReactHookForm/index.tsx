@@ -4,10 +4,9 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 
 import { reactHookFormSlice } from '../../../store/reducers/reactHookFormSlice';
-import { selectData } from '../../../store/reducers/selector';
 import { dataSlice } from '../../../store/reducers/dataSlice';
 
-import { useAppDispatch, useAppSelector } from '../../../hooks/hooks';
+import { useAppDispatch } from '../../../hooks/hooks';
 
 import { schema } from '../../../utils/validation/validationSchema';
 import { genderList } from '../../../utils/data/genderList';
@@ -18,13 +17,13 @@ import StyledRHFInput from '../../MyInputs/StyledRHFInput';
 import StyledRHFSelect from '../../MySelect/StyledRHFSelect';
 
 import styles from './ReactHookForm.module.css';
+import AutocompleteRHFInput from '../../MyInputs/AutocompleteRHFInput';
 
 const ReactHookForm: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { setImage, setData } = reactHookFormSlice.actions;
   const { setSuccessSubmitRHForm } = dataSlice.actions;
-  const { countryList } = useAppSelector(selectData);
 
   const {
     register,
@@ -105,10 +104,10 @@ const ReactHookForm: FC = () => {
           register={register}
         />
 
-        <StyledRHFSelect
+        <AutocompleteRHFInput
           name="country"
-          options={countryList}
           title="Country"
+          type="text"
           errors={errors}
           register={register}
         />
