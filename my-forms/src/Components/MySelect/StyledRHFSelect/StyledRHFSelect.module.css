@@ -1,0 +1,17 @@
+.fieldContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+.fieldTitle {
+  width: 150px;
+  display: block;
+}
+.inputLabel {
+  position: relative;
+}
+.errorMessage {
+  color: red;
+  font-weight: 700;
+  text-align: center;
+  position: absolute;
+}

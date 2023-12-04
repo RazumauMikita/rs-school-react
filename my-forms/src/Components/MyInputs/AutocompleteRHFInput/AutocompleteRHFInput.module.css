@@ -1,0 +1,38 @@
+.fieldContainer {
+  display: flex;
+  flex-wrap: wrap;
+}
+.fieldTitle {
+  width: 150px;
+  display: block;
+}
+.inputLabel {
+  position: relative;
+}
+.errorMessage {
+  color: red;
+  font-weight: 700;
+  text-align: center;
+  position: absolute;
+}
+
+.suggestionsContainer {
+  margin: 0;
+  border: 1px solid #999;
+  position: absolute;
+  list-style: none;
+  padding: 0;
+  width: 160px;
+  max-height: 200px;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  z-index: 999;
+  background-color: gray;
+}
+
+.suggestionsContainer li:hover {
+  background-color: darkgray;
+  cursor: pointer;
+}
